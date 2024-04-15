@@ -46,8 +46,6 @@ public class Reta  {
         return crossProduct(c) == 0;
     }
 
-
-
     /** Getter para o ponto a
      *
      * @return a
