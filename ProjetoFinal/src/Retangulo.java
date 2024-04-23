@@ -48,23 +48,18 @@ public class Retangulo extends Poligono{
         }
     }
 
+    @Override
+    protected Poligono initPolygon(ArrayList<Ponto> p){
+        return new Retangulo(p);
+    }
+
     /**
      *
      * @return o array de pontos em forma de string
      */
-
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Retangulo: ").append("[");
-        for (int i = 0; i < 4; i++) {
-            sb.append("(").append((int)getP().get(i).getX()).append(",").append((int)getP().get(i).getY()).append(")");
-            if (i < 3) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
+        return "Retangulo: " + getP();
 
     }
 

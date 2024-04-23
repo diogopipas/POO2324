@@ -110,14 +110,11 @@ public class PoligonoTest {
 
         Poligono poligono = new Poligono(pontosPoligono);
 
-        ArrayList<Ponto> pontosRotacionados = poligono.rotatePolygon(180);
-        System.out.println(pontosRotacionados.get(0));
-        System.out.println(pontosRotacionados.get(1));
-        System.out.println(pontosRotacionados.get(2));
+        Poligono poligono_rotated = poligono.rotatePolygon(180);
 
-        assertEquals("Coordenada x: 4.0\nCoordenada y: 3.0\n", pontosRotacionados.get(0).toString());
-        assertEquals("Coordenada x: 2.0\nCoordenada y: 3.0\n", pontosRotacionados.get(1).toString());
-        assertEquals("Coordenada x: 3.0\nCoordenada y: 0.0\n", pontosRotacionados.get(2).toString());
+        assertEquals("(4,3)", poligono_rotated.getP().get(0).toString());
+        assertEquals("(2,3)", poligono_rotated.getP().get(1).toString());
+        assertEquals("(3,0)", poligono_rotated.getP().get(2).toString());
 
     }
 
@@ -158,11 +155,10 @@ public class PoligonoTest {
 
         Poligono polygon = new Poligono(points);
 
-
         double dx = 2.0;
         double dy = 3.0;
 
-        ArrayList<Ponto> translatedPoints = polygon.translatePolygon(dx, dy);
+        Poligono translatedPolygon = polygon.translatePolygon(dx, dy);
 
 
         ArrayList<Ponto> expectedPoints = new ArrayList<>();
@@ -172,11 +168,9 @@ public class PoligonoTest {
         expectedPoints.add(new Ponto(2, 7));
 
 
-        assertEquals(expectedPoints.size(), translatedPoints.size());
-        for (int i = 0; i < expectedPoints.size(); i++) {
-            assertEquals(expectedPoints.get(i).getX(), translatedPoints.get(i).getX());
-            assertEquals(expectedPoints.get(i).getY(), translatedPoints.get(i).getY());
-        }
+        assertEquals(expectedPoints.size(), translatedPolygon.getP().size());
+        assertEquals("Poligono de 4 vertices: " + expectedPoints, translatedPolygon.toString());
+
     }
 
     @Test
@@ -193,18 +187,19 @@ public class PoligonoTest {
 
         Ponto newCentroid = new Ponto(5, 5);
 
-        ArrayList<Ponto> translatedPoints = polygon.translatePolygon(newCentroid);
+        Poligono translatedPolygon = polygon.translatePolygon(newCentroid);
 
-        ArrayList<Ponto> expectedTranslatedPoints = new ArrayList<>();
-        for (Ponto point : points) {
-            expectedTranslatedPoints.add(point.translatePoint(newCentroid.getX() - currentCentroid.getX(),
-                    newCentroid.getY() - currentCentroid.getY()));
-        }
+        assertEquals("Poligono de 4 vertices: [(3,3), (6,3), (6,7), (3,7)]", translatedPolygon.toString());
+    }
 
-        assertEquals(expectedTranslatedPoints.size(), translatedPoints.size());
-        for (int i = 0; i < expectedTranslatedPoints.size(); i++) {
-            assertEquals(expectedTranslatedPoints.get(i).getX(), translatedPoints.get(i).getX());
-            assertEquals(expectedTranslatedPoints.get(i).getY(), translatedPoints.get(i).getY());
-        }
+    @Test
+    public void testToString(){
+        ArrayList<Ponto> p = new ArrayList<>();
+        p.add(new Ponto(5, 5));
+        p.add(new Ponto(8, 6));
+        p.add(new Ponto(8, 7));
+        p.add(new Ponto(5, 7));
+        Poligono poligono = new Poligono(p);
+        assertEquals("Poligono de 4 vertices: [(5,5), (8,6), (8,7), (5,7)]", poligono.toString());
     }
 }

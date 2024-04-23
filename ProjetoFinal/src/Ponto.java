@@ -106,12 +106,7 @@ class Ponto {
      */
 
     public String toString(){
-        StringBuilder s = new StringBuilder();
-        s.append("Coordenada x: ");s.append((int)this.x);
-        s.append("\n");
-        s.append("Coordenada y: ");s.append((int)this.y);
-        s.append("\n");
-        return s.toString();
+        return "(" + (int) getX() + "," + (int) getY() + ")";
     }
 
     /**

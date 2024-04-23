@@ -175,16 +175,16 @@ public class Poligono{
      * @param angleDeg angulo de rotação em graus
      * @return um array com pontos com a rotação aplicada
      */
-    public ArrayList<Ponto> rotatePolygon(Ponto anchorPoint, int angleDeg){
+    public Poligono rotatePolygon(Ponto anchorPoint, int angleDeg){
         if(angleDeg % 360 == 0){
-            return this.p;
+            return new Poligono(this.p);
         }
         ArrayList<Ponto> rotatedPoints = new ArrayList<>();
         for (Ponto ponto : this.p) {
             rotatedPoints.add(ponto.rotatePoint(anchorPoint, angleDeg));
         }
 
-        return rotatedPoints;
+        return initPolygon(rotatedPoints);
     }
 
     /**
@@ -207,16 +207,16 @@ public class Poligono{
      * @param angleDeg ponto de referência para a rotação
      * @return um array com pontos com a rotação aplicada
      */
-    public ArrayList<Ponto> rotatePolygon(int angleDeg){
+    public Poligono rotatePolygon(int angleDeg){
         if(angleDeg % 360 == 0){
-            return this.p;
+            return initPolygon(this.p);
         }
         ArrayList<Ponto> rotatedPoints = new ArrayList<>();
         Ponto centroide = findCentroide();
         for (Ponto ponto : this.p) {
             rotatedPoints.add(ponto.rotatePoint(centroide, angleDeg));
         }
-        return rotatedPoints;
+        return initPolygon(rotatedPoints);
     }
 
     /**
@@ -225,17 +225,17 @@ public class Poligono{
      * @param dy distância de translação y
      * @return arraylist com pontos com a translação aplicada
      */
-    public ArrayList<Ponto> translatePolygon(double dx, double dy){
+    public Poligono translatePolygon(double dx, double dy){
         ArrayList<Ponto> translatedPoints = new ArrayList<>();
 
         for(Ponto ponto: this.p){
             translatedPoints.add(ponto.translatePoint(dx, dy));
         }
 
-        return translatedPoints;
+        return initPolygon(translatedPoints);
     }
 
-    public ArrayList<Ponto> translatePolygon(Ponto centroideNovo){
+    public Poligono translatePolygon(Ponto centroideNovo){
         ArrayList<Ponto> translatedPoints = new ArrayList<>();
         Ponto centroideAtual = findCentroide();
         double dx = centroideNovo.getX() - centroideAtual.getX();
@@ -244,24 +244,20 @@ public class Poligono{
         for(Ponto ponto: this.p){
             translatedPoints.add(ponto.translatePoint(dx, dy));
         }
-        return translatedPoints;
+        return initPolygon(translatedPoints);
     }
+
+    protected Poligono initPolygon(ArrayList<Ponto> p){
+        return new Poligono(p);
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Poligono de ").append(p.size()).append(" vertices: [");
-        for (int i = 0; i < p.size(); i++) {
-            sb.append("(").append((int)p.get(i).getX()).append(",").append((int)p.get(i).getY()).append(")");
-            if (i < p.size() - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
+        return "Poligono de " + this.p.size() + " vertices: " + this.p;
     }
 
     public ArrayList<Ponto> getP() {
-        return p;
+        return this.p;
     }
 }
 

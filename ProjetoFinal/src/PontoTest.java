@@ -6,7 +6,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Classe de testes para a classe Ponto.
@@ -91,8 +91,8 @@ public class PontoTest {
      */
     @Test
     void toStringTest() {
-        assertEquals("Coordenada x: 0.0\nCoordenada y: 0.0\n", ponto1.toString());
-        assertEquals("Coordenada x: 3.0\nCoordenada y: 4.0\n", ponto2.toString());
+        assertEquals("(0,0)", ponto1.toString());
+        assertEquals("(3,4)", ponto2.toString());
     }
 
     @Test
