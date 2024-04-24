@@ -1,3 +1,7 @@
+/**
+ * @version 1.0
+ * @author André Santos, Diogo Porto
+ */
 public class Simulacao {
     private Arena arena;
     private boolean running;
@@ -17,5 +21,9 @@ public class Simulacao {
 
     public void stop() {
         running = false;
+    }
+
+    public boolean isRunning() {
+        return true;
     }
 }

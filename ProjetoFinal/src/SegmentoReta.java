@@ -1,6 +1,6 @@
 /**
  * @version 1.2
- * @author Diogo Porto
+ * @author André Santos, Diogo Porto
  */
 public class SegmentoReta extends Reta{
     private Ponto a, b;

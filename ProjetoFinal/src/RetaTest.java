@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @version 1.0
- * @author Diogo Porto
+ * @author André Santos, Diogo Porto
  */
 public class RetaTest {
 

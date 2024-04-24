@@ -1,6 +1,6 @@
 /**
  * @version 1.0
- * @author Diogo Porto
+ * @author André Santos, Diogo Porto
  */
 
 import org.junit.jupiter.api.Test;
@@ -49,8 +49,8 @@ public class TrianguloTest {
         pontos.add(new Ponto(4, 0));
         pontos.add(new Ponto(2, 2));
 
-        Triangulo triangulo = new Triangulo(pontos);
-        Triangulo rotatedTriangulo = triangulo.rotatePolygon(new Ponto(2, 2), 180);
+        Poligono triangulo = new Triangulo(pontos);
+        Poligono rotatedTriangulo = triangulo.rotatePolygon(new Ponto(2, 2), 180);
 
         assertEquals(new Ponto(4, 4), rotatedTriangulo.getP().get(0));
         assertEquals(new Ponto(0, 4), rotatedTriangulo.getP().get(1));
@@ -63,9 +63,9 @@ public class TrianguloTest {
         pontos.add(new Ponto(0, 0));
         pontos.add(new Ponto(4, 0));
         pontos.add(new Ponto(2, 4));
-        Triangulo triangulo = new Triangulo(pontos);
+        Poligono triangulo = new Triangulo(pontos);
 
-        Triangulo translatedTriangulo = triangulo.translatePolygon(3, 2);
+        Poligono translatedTriangulo = triangulo.translatePolygon(3, 2);
 
         Ponto expectedPonto1 = new Ponto(3, 2);
         Ponto expectedPonto2 = new Ponto(7, 2);

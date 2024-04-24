@@ -1,3 +1,8 @@
+/**
+ * @version 1.0
+ * @author André Santos, Diogo Porto
+ */
+
 import javax.swing.*;
 import java.awt.*;
 

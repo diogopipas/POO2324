@@ -1,5 +1,5 @@
 /** @version 1.2
- * @author Diogo Porto
+ * @author André Santos, Diogo Porto
  */
 
 public class Reta  {

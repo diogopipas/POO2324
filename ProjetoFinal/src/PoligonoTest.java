@@ -1,6 +1,6 @@
 /**
  * @version 1.1
- * @author Diogo Porto
+ * @author André Santos, Diogo Porto
  */
 import org.junit.jupiter.api.Test;
 

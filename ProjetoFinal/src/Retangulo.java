@@ -1,6 +1,6 @@
 /**
- * @author Diogo Porto
  * @version 1.0
+ * @author André Santos, Diogo Porto
  */
 
 import java.util.ArrayList;

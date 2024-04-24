@@ -1,7 +1,7 @@
 import java.util.Objects;
 
 /** @version 1.2
- * @author Diogo Porto
+ * @author André Santos, Diogo Porto
  */
 class Ponto {
     private double x, y;
