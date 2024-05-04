@@ -1,21 +1,49 @@
-/**
- * @version 1.0
- * @author André Santos, Diogo Porto
- */
-
 import javax.swing.*;
+import java.awt.*;
 
 public class ClienteGUI {
+
     public static void main(String[] args) {
-        Arena arena = new Arena(200, 100);
-        // Inicializar outros elementos da arena
-        Painel panel = new Painel(arena);
-        JFrame frame = new JFrame("OOPS - Object-Oriented Programmed Snake");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
-        Simulacao simulation = new Simulacao(arena);
-        simulation.start();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Frame frame = new Frame();
+                frame.setVisible(true);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(new Dimension(450, 550));
+                frame.setLocationRelativeTo(null);
+                frame.setResizable(false);
+                frame.setTitle("Snake Game");
+                frame.getContentPane().setBackground(Color.BLACK);
+            }
+        });
+    }
+}
+
+class Frame extends JFrame {
+
+    private JogoModel model;
+    private JogoController controller;
+    private JogoView view;
+    private PainelNorte npanel;
+    private PainelSul spanel;
+
+
+    public Frame() {
+
+        model = new JogoModel();
+
+        view = new JogoView();
+        add(view, BorderLayout.CENTER);
+
+        npanel = new PainelNorte();
+        add(npanel, BorderLayout.NORTH);
+
+        spanel = new PainelSul();
+        add(spanel, BorderLayout.SOUTH);
+
+        controller = new JogoController(model, view, npanel, spanel);
+
+
     }
 }

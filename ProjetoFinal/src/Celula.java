@@ -1,27 +1,59 @@
-/**
- * @version 1.0
- * @author André Santos, Diogo Porto
- */
-public class Celula {
-    private int x;
-    private int y;
-    private boolean occupied;
-    // Outros atributos e métodos
+import java.awt.geom.Ellipse2D;
 
-    public Celula(int x, int y) {
-        this.x = x;
-        this.y = y;
+class Celula {
+    private TipoCelula cellType;
+    private Ellipse2D.Double circle = new Ellipse2D.Double();
+
+    public Celula() {
+        this.cellType = TipoCelula.NONE;
     }
 
-    public int getX() {
-        return 0;
+    public Celula(int type) {
+        this.setCellType(type);
     }
 
-    public int getY() {
-        return 0;
+    public void setCellType(int i) {
+        switch (i) {
+            case 0:
+                this.cellType = TipoCelula.NONE;
+                break;
+            case 1:
+                this.cellType = TipoCelula.SNAKE;
+                break;
+            case 2:
+                this.cellType = TipoCelula.FOOD;
+        }
+
     }
 
-    public Boolean isOccupied() {
-        return null;
+    public int getCellType() {
+        switch (this.cellType) {
+            case SNAKE:
+                return 1;
+            case FOOD:
+                return 2;
+            default:
+                return 0;
+        }
+    }
+
+    public boolean isSnake() {
+        return this.cellType.equals(TipoCelula.SNAKE);
+    }
+
+    public boolean isFood() {
+        return this.cellType.equals(TipoCelula.FOOD);
+    }
+
+    public boolean isNone() {
+        return this.cellType.equals(TipoCelula.NONE);
+    }
+
+    public void setCircle(double x, double y, double w, double h) {
+        this.circle.setFrame(x, y, w, h);
+    }
+
+    public Ellipse2D getCircle() {
+        return this.circle;
     }
 }
