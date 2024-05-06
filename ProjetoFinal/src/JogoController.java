@@ -27,8 +27,8 @@ class JogoController {
         int startx = 20;
         int starty = 20;
         double CellWidth = 20.0;
-        int numOfRows = this.model.getGridHeight();
-        int numOfColumn = this.model.getGridWidth();
+        int numOfRows = this.model.getArenaHeight();
+        int numOfColumn = this.model.getArenaWidth();
         Celula[][] Cells = new Celula[numOfRows][numOfColumn];
 
         for(int i = 0; i < Cells.length; ++i) {
@@ -53,14 +53,6 @@ class JogoController {
             this.stopTime();
             this.npanel.updatePanelForPlayMode(false);
         }
-
-        if (this.model.getCurrentLive() == 0) {
-            this.npanel.updatePanelForGameOverMode();
-            JLabel label = new JLabel("Game Over");
-            label.setFont(new Font("Arial", 1, 18));
-            JOptionPane.showMessageDialog((Component)null, label, (String)null, 2);
-        }
-
     }
 
     private void initialpanelViewListeners() {
@@ -136,12 +128,7 @@ class JogoController {
         (new Thread(new Runnable() {
             public void run() {
                 synchronized(JogoController.this.model) {
-                    if (JogoController.this.model.getCurrentLive() == 0) {
-                        JogoController.this.model.removeFood();
-                    } else {
-                        JogoController.this.performOneStep();
-                    }
-
+                    JogoController.this.performOneStep();
                     JogoController.this.updateGameViewDisplay();
                 }
             }

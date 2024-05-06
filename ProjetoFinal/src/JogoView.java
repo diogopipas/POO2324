@@ -23,7 +23,7 @@ class JogoView extends JComponent {
                 } else if (this.snakeGame[i][j].isFood()) {
                     g2d.setColor(Color.RED);
                 } else {
-                    g2d.setColor(Color.BLACK);
+                    g2d.setColor(Color.WHITE);
                 }
 
                 g2d.fill(this.snakeGame[i][j].getCircle());

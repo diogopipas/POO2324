@@ -8,8 +8,7 @@
 import java.awt.*;
 
 public interface Arena {
-    public void initArena();
-    public int getLargura();
-    public int getAltura();
-    public boolean collidesWith();
+    public int getArenaWidth();
+    public int getArenaHeight();
+    public boolean detectCollision();
 }

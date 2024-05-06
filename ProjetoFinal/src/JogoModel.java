@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-class JogoModel {
+class JogoModel implements Arena, Cobra, Comida{
 
     static final int TOTAL_GAME_AREA = 20;
 
     private Celula[][] cellgrid = new Celula[TOTAL_GAME_AREA][TOTAL_GAME_AREA];
     private int currentScore = 0;
-    private int currentLive = 3;
     //false means game is paused
     private boolean isPlaying = false;
     private int timeinterval = 1500;
@@ -36,6 +35,9 @@ class JogoModel {
         updateSnakeParts();
     }
 
+    /**
+     * Comida Methods
+     */
     //changes the Position of the fruit by randomly assigning cordinates
     public void changeFoodPosition(){
         int x, y;
@@ -58,9 +60,16 @@ class JogoModel {
     public void removeFood(){
         //technically supposed to be eaqual to null but that won't work in my code
         //assigned negative coordinates
-        this.foodPosition = new Ponto(-1, -1);
+        this.foodPosition = null;
     }
 
+    public Ponto getFoodPosition(){
+        return this.foodPosition;
+    }
+
+    /**
+     * Cobra Methods
+     */
     public void updateSnakeParts(){
         this.snakeParts = SnakeCoordinates.size();
     }
@@ -76,6 +85,38 @@ class JogoModel {
         this.SnakeCoordinates.add(position, new Ponto(newX, newY));
     }
 
+    public boolean snakeCollides(Quadrado q2){
+        return true;
+    }
+    public void snakeDies(){
+        this.snakeParts = 0;
+        SnakeCoordinates.removeAll(SnakeCoordinates);
+        this.previousArrow = Arrow.LEFT;
+        this.currentArrow = Arrow.RIGHT;
+    }
+
+    public void snakeEats(){
+        addNewSnakePart(SnakeCoordinates.get(snakeParts-1).getX(), SnakeCoordinates.get(snakeParts-1).getY());
+        changeFoodPosition();
+        incrementScore();
+        updateSnakeParts();
+    }
+
+    /**
+     * Arena Methods
+     */
+
+    public int getArenaWidth(){return cellgrid[0].length;}
+    public int getArenaHeight(){return cellgrid.length;}
+    public boolean detectCollision(){
+        return SnakeCoordinates.get(0).getX() < 0 || SnakeCoordinates.get(0).getX() > TOTAL_GAME_AREA-1 ||SnakeCoordinates.get(0).getY() <0 || SnakeCoordinates.get(0).getY() > TOTAL_GAME_AREA-1;
+    }
+
+
+    /**
+     * Celula Methods
+     */
+
     public Celula[][] getCellGrid(){
         return cellgrid;
     }
@@ -88,13 +129,14 @@ class JogoModel {
         cellgrid[x][y].setCellType(y);
     }
 
+    /**
+     * Misc methods
+     */
+
     public void setReset(boolean reset){this.reset = reset;}
 
     public void setScore(int score){ this.currentScore = score;}
     public int getCurrentScore() {return currentScore;}
-
-    public void setLive(int lives){ this.currentLive = lives;  }
-    public int getCurrentLive() {return currentLive; }
 
     public void setArrowKey(String key){
         //other part of the if check to make sure snake only moves forward and not backward
@@ -122,13 +164,6 @@ class JogoModel {
         return currentScore;
     }
 
-    public int decrementLive(){
-        currentLive -=1;
-        return currentLive;
-    }
-
-    public int getGridHeight(){return cellgrid.length;}
-    public int getGridWidth(){return cellgrid[0].length;}
 
     public void setPlayingMode(boolean isPlaying) {this.isPlaying = isPlaying;}
     public boolean getPlayingMode() {return isPlaying;}
@@ -136,21 +171,12 @@ class JogoModel {
     public int getTimeInterval(){return timeinterval;}
     public void setTimeInterval(int time){this.timeinterval = time;}
 
-    public void snakeDies(){
-        //lives is decremeted and snakecordinates are reset to intial
-        decrementLive();
-        this.snakeParts = 0;
-        SnakeCoordinates.removeAll(SnakeCoordinates);
-        this.previousArrow = Arrow.LEFT;
-        this.currentArrow = Arrow.RIGHT;
-    }
 
     //reseting all the variables
     public void ResetGame(){
         snakeDies();
         setScore(0);
-        setLive(3);
-        removeFood();
+        //removeFood();
         this.previousArrow = Arrow.LEFT;
         this.currentArrow = Arrow.RIGHT;
     }
@@ -177,11 +203,10 @@ class JogoModel {
 
             if(SnakeCoordinates.get(0).getX() == foodPosition.getX() && SnakeCoordinates.get(0).getY() == foodPosition.getY())
             {
-                eat();
+                snakeEats();
             }
 
-            //if snake touches the boundary
-            if(SnakeCoordinates.get(0).getX() < 0 || SnakeCoordinates.get(0).getX() > TOTAL_GAME_AREA-1 ||SnakeCoordinates.get(0).getY() <0 ||SnakeCoordinates.get(0).getY() > TOTAL_GAME_AREA-1)
+            if(detectCollision())
             {
                 snakeDies();
                 isPlaying = false;
@@ -241,13 +266,6 @@ class JogoModel {
 //            System.out.println(SnakeCordinates.get(i).x +" "+SnakeCordinates.get(i).y+" ,");
 //        }
 
-    }
-
-    public void eat(){
-        addNewSnakePart(SnakeCoordinates.get(snakeParts-1).getX(), SnakeCoordinates.get(snakeParts-1).getY());
-        changeFoodPosition();
-        incrementScore();
-        updateSnakeParts();
     }
 
 }
