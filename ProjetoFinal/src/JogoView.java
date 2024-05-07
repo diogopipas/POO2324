@@ -1,6 +1,5 @@
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
@@ -25,8 +24,8 @@ class JogoView extends JComponent {
                 } else {
                     g2d.setColor(Color.WHITE);
                 }
-
-                g2d.fill(this.snakeGame[i][j].getCircle());
+                //g2d.draw(this.snakeGame[i][j].getRect());
+                g2d.fill(this.snakeGame[i][j].getRect());
             }
         }
 

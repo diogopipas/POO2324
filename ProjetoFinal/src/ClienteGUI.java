@@ -13,7 +13,7 @@ public class ClienteGUI {
                 frame.setSize(new Dimension(450, 550));
                 frame.setLocationRelativeTo(null);
                 frame.setResizable(false);
-                frame.setTitle("Snake Game");
+                frame.setTitle("OOPS! The Snake Game");
                 frame.getContentPane().setBackground(Color.BLACK);
             }
         });

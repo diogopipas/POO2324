@@ -43,8 +43,6 @@ class JogoModel implements Arena, Cobra, Comida{
         int x, y;
         x = new Random().nextInt(TOTAL_GAME_AREA-1);
         y = new Random().nextInt(TOTAL_GAME_AREA-1);
-        System.out.println(x);
-        System.out.println(y);
 
         //to prevent overlapping of snake's coordinates and the fruits position
         if(snakeParts>0){
@@ -109,7 +107,7 @@ class JogoModel implements Arena, Cobra, Comida{
     public int getArenaWidth(){return cellgrid[0].length;}
     public int getArenaHeight(){return cellgrid.length;}
     public boolean detectCollision(){
-        return SnakeCoordinates.get(0).getX() < 0 || SnakeCoordinates.get(0).getX() > TOTAL_GAME_AREA-1 ||SnakeCoordinates.get(0).getY() <0 || SnakeCoordinates.get(0).getY() > TOTAL_GAME_AREA-1;
+        return SnakeCoordinates.get(0).getX() < 0 || SnakeCoordinates.get(0).getX() > TOTAL_GAME_AREA-1 ||SnakeCoordinates.get(0).getY() < 0 || SnakeCoordinates.get(0).getY() > TOTAL_GAME_AREA-1;
     }
 
 

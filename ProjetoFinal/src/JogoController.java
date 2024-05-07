@@ -30,15 +30,14 @@ class JogoController {
         int numOfRows = this.model.getArenaHeight();
         int numOfColumn = this.model.getArenaWidth();
         Celula[][] Cells = new Celula[numOfRows][numOfColumn];
-
-        for(int i = 0; i < Cells.length; ++i) {
+        for(int i = 0; i < Cells.length; i++) {
             double curretYPos = (double)i * CellWidth + (double)starty;
 
-            for(int j = 0; j < Cells[i].length; ++j) {
+            for(int j = 0; j < Cells[i].length; j++) {
                 double curentXPos = (double)j * CellWidth + (double)startx;
                 int currentCellType = this.model.getCellType(i, j);
                 Cells[i][j] = new Celula(currentCellType);
-                Cells[i][j].setCircle(curentXPos, curretYPos, CellWidth, CellWidth);
+                Cells[i][j].setRect(curentXPos, curretYPos, CellWidth, CellWidth);
             }
         }
 

@@ -1,8 +1,12 @@
+import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 class Celula {
     private TipoCelula cellType;
     private Ellipse2D.Double circle = new Ellipse2D.Double();
+    //private Quadrado square;
+    private Rectangle rect = new Rectangle();
 
     public Celula() {
         this.cellType = TipoCelula.NONE;
@@ -53,7 +57,19 @@ class Celula {
         this.circle.setFrame(x, y, w, h);
     }
 
+    public void setRect(double x, double y, double w, double h) {
+        this.rect.setFrame(x, y, w, h);
+    }
+
+    public void setSquare(){}
+
     public Ellipse2D getCircle() {
         return this.circle;
     }
+
+    public Rectangle getRect() {
+        return this.rect;
+    }
+
+    //public Quadrado getSquare(){return this.square;}
 }
