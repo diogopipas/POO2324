@@ -50,7 +50,6 @@ class JogoModel implements Arena, Cobra, Comida{
                 x = new Random().nextInt(TOTAL_GAME_AREA-1);
                 y = new Random().nextInt(TOTAL_GAME_AREA-1);
             }}
-
         this.foodPosition = new Ponto(x, y);
     }
 
@@ -130,7 +129,6 @@ class JogoModel implements Arena, Cobra, Comida{
     /**
      * Misc methods
      */
-
     public void setReset(boolean reset){this.reset = reset;}
 
     public void setScore(int score){ this.currentScore = score;}
