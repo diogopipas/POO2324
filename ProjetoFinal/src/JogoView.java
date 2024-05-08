@@ -21,6 +21,8 @@ class JogoView extends JComponent {
                     g2d.setColor(Color.GREEN);
                 } else if (this.snakeGame[i][j].isFood()) {
                     g2d.setColor(Color.RED);
+                }else if (this.snakeGame[i][j].isObstacle()){
+                    g2d.setColor(Color.BLUE);
                 } else {
                     g2d.setColor(Color.WHITE);
                 }

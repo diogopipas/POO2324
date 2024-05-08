@@ -2,6 +2,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -60,7 +62,7 @@ class JogoController {
                 JogoController.this.model.setPlayingMode(!JogoController.this.model.getPlayingMode());
                 JogoController.this.stopTime();
                 if (JogoController.this.model.getPlayingMode()) {
-                    JogoController.this.model.setArrowKey("right");
+                    JogoController.this.model.setArrowKey(JogoController.this.model.randomizeArrow());
                     JogoController.this.startGame();
                     JogoController.this.npanel.updatePanelForPlayMode(true);
                 } else {
@@ -70,21 +72,6 @@ class JogoController {
             }
         });
 
-        this.npanel.addNewGameButtonListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                JLabel label = new JLabel("New Game");
-                label.setFont(new Font("Arial", 1, 18));
-                JOptionPane.showMessageDialog((Component)null, label, "Are you sure?", 1);
-                JogoController.this.model.setReset(true);
-                JogoController.this.model.NextStep();
-                JogoController.this.spanel.setScoreLabel(JogoController.this.model.getCurrentScore());
-                JogoController.this.updateGameViewDisplay();
-                JogoController.this.model.setReset(false);
-                JogoController.this.model.setPlayingMode(false);
-                JogoController.this.model.changeFoodPosition();
-                JogoController.this.npanel.updatePanelforGameStartMode();
-            }
-        });
         this.view.addKeyArrowListener(38, "up", new AbstractAction() {
             public void actionPerformed(ActionEvent ae) {
                 JogoController.this.model.setArrowKey("up");

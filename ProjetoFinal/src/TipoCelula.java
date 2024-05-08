@@ -1,5 +1,6 @@
 public enum TipoCelula {
     NONE,
     FOOD,
-    SNAKE
+    SNAKE,
+    OBSTACLE,
 }
