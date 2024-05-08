@@ -45,7 +45,7 @@ class Ponto {
      * @param x coordenada x
      */
     public void setX(double x) {
-        check(x);
+        //check(x);
         this.x = x;
     }
 
@@ -54,7 +54,7 @@ class Ponto {
      * @param y coordenada y
      */
     public void setY(double y) {
-        check(y);
+        //check(y);
         this.y = y;
     }
 
@@ -62,6 +62,7 @@ class Ponto {
      *
      * @param coordenada coordenada a ser verificada
      */
+
     public void check(double coordenada){
         if(coordenada < 0){
             System.out.println("Ponto:vi");

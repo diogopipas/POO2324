@@ -16,6 +16,7 @@ class JogoModel implements Arena, Cobra, Comida{
     //used Point as it is easy to store x and y cordinates than a 2D array
     private ArrayList<Ponto> SnakeCoordinates;
     private Ponto foodPosition;
+    private Ponto obstaclePosition;
     private Arrow currentArrow = Arrow.RIGHT;
     private Arrow previousArrow = Arrow.LEFT;
     //boolean to see if user wants to reset game
@@ -27,7 +28,7 @@ class JogoModel implements Arena, Cobra, Comida{
                 cellgrid1[j] = new Celula();
             }
         }
-
+        generateObstacle();
         changeFoodPosition();
 
         SnakeCoordinates = new ArrayList<>();
@@ -82,14 +83,16 @@ class JogoModel implements Arena, Cobra, Comida{
         this.SnakeCoordinates.add(position, new Ponto(newX, newY));
     }
 
-    public boolean snakeCollides(Quadrado q2){
-        return true;
+    public boolean snakeCollides(){
+        return SnakeCoordinates.get(0).getX() == obstaclePosition.getX() && SnakeCoordinates.get(0).getY() == obstaclePosition.getY();
     }
     public void snakeDies(){
         this.snakeParts = 0;
         SnakeCoordinates.removeAll(SnakeCoordinates);
         this.previousArrow = Arrow.LEFT;
         this.currentArrow = Arrow.RIGHT;
+        generateObstacle();
+        setScore(0);
     }
 
     public void snakeEats(){
@@ -107,6 +110,21 @@ class JogoModel implements Arena, Cobra, Comida{
     public int getArenaHeight(){return cellgrid.length;}
     public boolean detectCollision(){
         return SnakeCoordinates.get(0).getX() < 0 || SnakeCoordinates.get(0).getX() > TOTAL_GAME_AREA-1 ||SnakeCoordinates.get(0).getY() < 0 || SnakeCoordinates.get(0).getY() > TOTAL_GAME_AREA-1;
+    }
+
+    public void generateObstacle(){
+        int x, y;
+        x = new Random().nextInt(TOTAL_GAME_AREA-1);
+        y = new Random().nextInt(TOTAL_GAME_AREA-1);
+
+        //to prevent overlapping of snake's coordinates and the fruits position
+        if(snakeParts>0){
+            while (SnakeCoordinates.contains(new Ponto(x, y))) {
+                x = new Random().nextInt(TOTAL_GAME_AREA-1);
+                y = new Random().nextInt(TOTAL_GAME_AREA-1);
+            }}
+
+        this.obstaclePosition = new Ponto(x, y);
     }
 
 
@@ -155,6 +173,12 @@ class JogoModel implements Arena, Cobra, Comida{
         return this.currentArrow.toString();
     }
 
+    public String randomizeArrow(){
+        int x = new Random().nextInt(0, 4);
+        String Arrows[] = {"LEFT", "RIGHT", "DOWN", "UP"};
+        return Arrows[x];
+    }
+
     public int incrementScore(){
         currentScore +=1;
         return currentScore;
@@ -179,44 +203,32 @@ class JogoModel implements Arena, Cobra, Comida{
 
     public void NextStep(){
         Celula nextVersion[][] = new Celula[TOTAL_GAME_AREA][TOTAL_GAME_AREA];
-
-        if(reset){
-            ResetGame();
+        if (snakeParts < 4) {
+            addNewSnakePart(new Random().nextInt(0, 20), new Random().nextInt(0, 20));
+            updateSnakeParts();
+            updateSnakePosition();
+        }else{
+            updateSnakePosition();
         }
 
-        else{
-            if (snakeParts == 0) {
-                addNewSnakePart(0, 2);
-                updateSnakeParts();
-            }
-            else if (snakeParts < 4) {
-                addNewSnakePart(0, 2);
-                updateSnakeParts();
-                updateSnakePosition();
+        if(SnakeCoordinates.get(0).getX() == foodPosition.getX() && SnakeCoordinates.get(0).getY() == foodPosition.getY())
+        {
+            snakeEats();
+        }
 
-            }
-            else{updateSnakePosition();}
-
-            if(SnakeCoordinates.get(0).getX() == foodPosition.getX() && SnakeCoordinates.get(0).getY() == foodPosition.getY())
-            {
-                snakeEats();
-            }
-
-            if(detectCollision())
-            {
+        if(snakeCollides() || detectCollision()){
+            snakeDies();
+            isPlaying = false;
+        }
+        //if snake eats itself
+        for (int i = 1; i < SnakeCoordinates.size()-1; i++) {
+            if (SnakeCoordinates.get(0).equals(SnakeCoordinates.get(i))) {
                 snakeDies();
                 isPlaying = false;
-            }
-
-            //if snake eats itself
-            for (int i = 1; i < SnakeCoordinates.size()-1; i++) {
-                if (SnakeCoordinates.get(0).equals(SnakeCoordinates.get(i))) {
-                    snakeDies();
-                    isPlaying = false;
-                    break;
-                }
+                break;
             }
         }
+
 
         for (int y = 0; y < cellgrid.length; y++) {
             for (int x = 0; x < cellgrid[y].length; x++) {
@@ -225,6 +237,9 @@ class JogoModel implements Arena, Cobra, Comida{
                 }
                 else if (foodPosition.equals(new Ponto(x, y))) {
                     nextVersion[y][x] = new Celula(2);
+                }
+                else if(obstaclePosition.equals(new Ponto(x, y))){
+                    nextVersion[y][x] = new Celula(3);
                 }
                 else {nextVersion[y][x] = new Celula(0);}
             }

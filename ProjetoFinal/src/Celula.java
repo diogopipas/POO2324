@@ -5,7 +5,6 @@ import java.awt.geom.Rectangle2D;
 class Celula {
     private TipoCelula cellType;
     private Ellipse2D.Double circle = new Ellipse2D.Double();
-    //private Quadrado square;
     private Rectangle rect = new Rectangle();
 
     public Celula() {
@@ -26,6 +25,9 @@ class Celula {
                 break;
             case 2:
                 this.cellType = TipoCelula.FOOD;
+                break;
+            case 3:
+                this.cellType = TipoCelula.OBSTACLE;
         }
 
     }
@@ -36,6 +38,8 @@ class Celula {
                 return 1;
             case FOOD:
                 return 2;
+            case OBSTACLE:
+                return 3;
             default:
                 return 0;
         }
@@ -52,6 +56,9 @@ class Celula {
     public boolean isNone() {
         return this.cellType.equals(TipoCelula.NONE);
     }
+    public boolean isObstacle() {
+        return this.cellType.equals(TipoCelula.OBSTACLE);
+    }
 
     public void setCircle(double x, double y, double w, double h) {
         this.circle.setFrame(x, y, w, h);
@@ -61,8 +68,6 @@ class Celula {
         this.rect.setFrame(x, y, w, h);
     }
 
-    public void setSquare(){}
-
     public Ellipse2D getCircle() {
         return this.circle;
     }
@@ -71,5 +76,5 @@ class Celula {
         return this.rect;
     }
 
-    //public Quadrado getSquare(){return this.square;}
+
 }
