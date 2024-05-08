@@ -1,7 +1,3 @@
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 
 /* 
 public interface Cobra {
@@ -16,60 +12,53 @@ public interface Cobra {
 
 }
 */
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cobra {
-    private ArrayList<Quadrado> corpo; // Cada segmento do corpo da cobra é um quadrado
+    private List<Quadrado> segmentos; // Lista de segmentos que compõem a cobra
+    private int tamanhoSegmento; // Tamanho de cada segmento da cobra
 
-    public Cobra(Ponto inicial) {
-        corpo = new ArrayList<>();
-        // Define o ponto inicial como a cabeça e assume que cada segmento da cobra tem tamanho 1x1
-        addSegmento(inicial);
+    public Cobra(Ponto posicaoInicial, int tamanhoSegmento) {
+        this.segmentos = new ArrayList<>();
+        this.tamanhoSegmento = tamanhoSegmento;
+        // Inicialmente a cobra tem apenas a cabeça
+        this.segmentos.add(criarQuadrado(posicaoInicial));
     }
 
-    private void addSegmento(Ponto ponto) {
+    private Quadrado criarQuadrado(Ponto centro) {
         ArrayList<Ponto> pontos = new ArrayList<>();
-        pontos.add(ponto);
-        pontos.add(new Ponto(ponto.getX() + 1, ponto.getY()));
-        pontos.add(new Ponto(ponto.getX() + 1, ponto.getY() + 1));
-        pontos.add(new Ponto(ponto.getX(), ponto.getY() + 1));
-        corpo.add(new Quadrado(pontos));
+        pontos.add(new Ponto(centro.getX() - tamanhoSegmento / 2, centro.getY() - tamanhoSegmento / 2));
+        pontos.add(new Ponto(centro.getX() + tamanhoSegmento / 2, centro.getY() - tamanhoSegmento / 2));
+        pontos.add(new Ponto(centro.getX() + tamanhoSegmento / 2, centro.getY() + tamanhoSegmento / 2));
+        pontos.add(new Ponto(centro.getX() - tamanhoSegmento / 2, centro.getY() + tamanhoSegmento / 2));
+        return new Quadrado(pontos);
     }
 
-    public void move(char direcao) {
-        Quadrado cabecaAtual = corpo.get(0);
-        Ponto pontoCabeca = cabecaAtual.getP().get(0); // Ponto de referência da cabeça
+    public void mover(char direcao) {
+        Ponto novaCabeçaPos = novaPosicaoCabeça(direcao);
+        segmentos.add(0, criarQuadrado(novaCabeçaPos)); // Adiciona um novo quadrado na frente
+        segmentos.remove(segmentos.size() - 1); // Remove o último quadrado para simular o movimento
+    }
 
-        Ponto novaPosicao = switch (direcao) {
-            case 'W' -> new Ponto(pontoCabeca.getX(), pontoCabeca.getY() - 1); // Cima
-            case 'S' -> new Ponto(pontoCabeca.getX(), pontoCabeca.getY() + 1); // Baixo
-            case 'A' -> new Ponto(pontoCabeca.getX() - 1, pontoCabeca.getY()); // Esquerda
-            case 'D' -> new Ponto(pontoCabeca.getX() + 1, pontoCabeca.getY()); // Direita
-            default -> null;
-        };
-
-        if (novaPosicao != null) {
-            corpo.add(0, new Quadrado(gerarPontos(novaPosicao)));
-            corpo.remove(corpo.size() - 1); // Remove a cauda, simulando o movimento
+    private Ponto novaPosicaoCabeça(char direcao) {
+        Ponto cabeçaAtual = segmentos.get(0).getP().get(0);
+        switch (direcao) {
+            case 'W': // Cima
+                return new Ponto(cabeçaAtual.getX(), cabeçaAtual.getY() - tamanhoSegmento);
+            case 'S': // Baixo
+                return new Ponto(cabeçaAtual.getX(), cabeçaAtual.getY() + tamanhoSegmento);
+            case 'A': // Esquerda
+                return new Ponto(cabeçaAtual.getX() - tamanhoSegmento, cabeçaAtual.getY());
+            case 'D': // Direita
+                return new Ponto(cabeçaAtual.getX() + tamanhoSegmento, cabeçaAtual.getY());
+            default:
+                return cabeçaAtual; // Se nenhum comando válido, não move
         }
     }
 
-    private ArrayList<Ponto> gerarPontos(Ponto base) {
-        ArrayList<Ponto> pontos = new ArrayList<>();
-        pontos.add(base);
-        pontos.add(new Ponto(base.getX() + 1, base.getY()));
-        pontos.add(new Ponto(base.getX() + 1, base.getY() + 1));
-        pontos.add(new Ponto(base.getX(), base.getY() + 1));
-        return pontos;
-    }
-
     public void crescer() {
-        Ponto caudaAtual = corpo.get(corpo.size() - 1).getP().get(0);
-        addSegmento(new Ponto(caudaAtual.getX(), caudaAtual.getY() + 1)); // Simples adição para crescimento
-    }
-
-    public ArrayList<Quadrado> getCorpo() {
-        return corpo;
+        Ponto últimaPos = segmentos.get(segmentos.size() - 1).getP().get(0);
+        segmentos.add(criarQuadrado(últimaPos)); // Adiciona um novo quadrado no final sem mover os outros
     }
 }

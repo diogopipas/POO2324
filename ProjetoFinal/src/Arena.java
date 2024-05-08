@@ -13,15 +13,13 @@ public interface Arena {
     public boolean detectCollision();
 }
 */
-
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Arena {
     private int largura, altura;
     private Cobra cobra;
-    private Ponto comida;
+    private Comida comida;
     private ArrayList<Poligono> obstaculos;
 
     public Arena(int largura, int altura) {
@@ -63,6 +61,7 @@ public class Arena {
             jogoAtivo = false;
             System.out.println("Game Over: Cobra colidiu com a borda!");
         }
+        
         // Verificar colisão com o corpo
         for (int i = 1; i < cobra.getCorpo().size(); i++) {
             if (cabeca.getP().contains(cobra.getCorpo().get(i).getP().get(0))) {
