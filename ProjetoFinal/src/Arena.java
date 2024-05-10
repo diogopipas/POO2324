@@ -23,12 +23,12 @@ public class Arena {
     private ArrayList<Obstaculo> obstaculo;
     private boolean jogoAtivo = true;
 
-    static final int TOTAL_GAME_AREA = 20;
+
 
     public Arena(int largura, int altura) {
         this.largura = largura;
         this.altura = altura;
-        this.cobra = new Cobra(3, TOTAL_GAME_AREA,TOTAL_GAME_AREA); // Posição inicial da cobra
+        this.cobra = new Cobra(3, largura, altura); // Posição inicial da cobra
         this.comida = new Comida();
         this.obstaculo = new ArrayList<>();
 
