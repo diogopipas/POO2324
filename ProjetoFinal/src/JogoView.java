@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
-
+/*
 class JogoView extends JComponent {
     private Celula[][] snakeGame;
 
@@ -43,3 +43,5 @@ class JogoView extends JComponent {
         return this.snakeGame;
     }
 }
+
+ */
