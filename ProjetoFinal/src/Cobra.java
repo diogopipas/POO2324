@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class Cobra {
 
     private ArrayList<Quadrado> cobra; // Lista de cobra que compõem a cobra
+    private double dimensao; // Dimensão da aresta dos quadrados
 
-    private int dimensao; // Dimensão da aresta dos quadrados
-
-    public Cobra(int dimensao, int boundX, int boundY){
+    public Cobra(double dimensao, Ponto posicaoInicial){
         this.dimensao = dimensao;
         this.cobra = new ArrayList<>(1);
-        Quadrado cabeca = new Quadrado(getQuadradoFromCentroid(new Ponto(boundX, boundY)));
+        Quadrado cabeca = new Quadrado(getQuadradoFromCentroid(posicaoInicial));
         cobra.add(cabeca);
     }
 

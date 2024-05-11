@@ -1,22 +1,33 @@
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-public abstract class Comida{
-    public static Object criarComida(String tipo, Object... args) {
-        switch (tipo) {
-            case "quadrado":
-                if (args[0] instanceof ArrayList) {
-                    return new Quadrado((ArrayList<Ponto>) args[0]);
-                } else {
-                    throw new IllegalArgumentException("Argumentos inválidos para Quadrado");
-                }
-            case "circulo":
-                if (args[0] instanceof Double && args[1] instanceof Ponto) {
-                    return new Circulo((Double) args[0], (Ponto) args[1]);
-                } else {
-                    throw new IllegalArgumentException("Argumentos inválidos para Circulo");
-                }
-            default:
-                throw new IllegalArgumentException("Tipo de comida inválido");
+public class Comida{
+    private Ponto posicaoComida;
+    private String tipoComida;
+    private double dimensao;
+    private Object formaComida;
+    public Comida(String tipoComida, Ponto posicaoComida, double dimensao){
+        this.posicaoComida = posicaoComida;
+        this.dimensao = dimensao;
+        if(tipoComida.equals("quadrado")){
+            this.formaComida = new Quadrado(getQuadradoFromCentroid(posicaoComida));
         }
+        else if(tipoComida.equals("circulo")){
+            this.formaComida = new Circulo(dimensao, posicaoComida);
+        }
+    }
+
+    public ArrayList<Ponto> getQuadradoFromCentroid(Ponto centroide){
+        ArrayList<Ponto> pontos = new ArrayList<>();
+        Ponto p1 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior esqueerdo
+        Ponto p2 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior direito
+        Ponto p3 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior direito
+        Ponto p4 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior esqueerdo~
+        pontos.add(p1);
+        pontos.add(p2);
+        pontos.add(p3);
+        pontos.add(p4);
+        return pontos;
     }
 }

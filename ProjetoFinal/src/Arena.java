@@ -5,31 +5,30 @@
  * paredes da arena
  */
 
-// import java.awt.*;
-/*
-public interface Arena {
-    public int getArenaWidth();
-    public int getArenaHeight();
-    public boolean detectCollision();
-}
-*/
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Arena {
     private int largura, altura;
     private Cobra cobra;
+    private int dimensaoCobra;
+    private String tipoComida;
+    private int dimensaoComida;
     private Comida comida;
     private ArrayList<Obstaculo> obstaculo;
     private boolean jogoAtivo = true;
 
 
 
-    public Arena(int largura, int altura) {
+    public Arena(String tipoComida, int dimensaoCobra, int dimensaoComida, int largura, int altura){
         this.largura = largura;
         this.altura = altura;
-        this.cobra = new Cobra(3, largura, altura); // Posição inicial da cobra
-        this.comida = new Comida();
+        this.dimensaoComida = dimensaoComida;
+        this.dimensaoCobra = dimensaoCobra;
+        this.cobra = new Cobra(dimensaoCobra, new Ponto(new Random().nextDouble(largura), new Random().nextDouble(altura))); // Posição inicial da cobra
+        this.tipoComida = tipoComida;
+        this.comida = new Comida(tipoComida, new Ponto(new Random().nextDouble(largura), new Random().nextDouble(altura)), dimensaoComida);
         this.obstaculo = new ArrayList<>();
 
     }
@@ -38,7 +37,7 @@ public class Arena {
         cobra.direcionarCobra(d);
         if (cobra.getCabeca().getP().contains(this.comida)) { // Verifica se a cabeça da cobra está na comida
             //cobra.crescer();
-            comida = new Comida(); // Gera nova comida
+            this.comida = new Comida(this.tipoComida, new Ponto(new Random().nextDouble(this.largura), new Random().nextDouble(this.altura)), this.dimensaoComida); // Gera nova comida
         }
     }
 

@@ -8,7 +8,7 @@ public class Simulador {
     public Simulador(){
         sc = new Scanner(System.in);
         readConfigs();
-        this.arena = new Arena(Integer.parseInt(this.dimensaoArena[0]), Integer.parseInt(this.dimensaoArena[1]));
+        this.arena = new Arena(this.tipoComida, Integer.parseInt(this.dimensaoCobra), Integer.parseInt(this.dimensaoComida), Integer.parseInt(this.dimensaoArena[0]), Integer.parseInt(this.dimensaoArena[1]));
     }
 
     public void readConfigs(){
@@ -26,11 +26,6 @@ public class Simulador {
         this.modoJogo = sc.next();
         System.out.println("Introduza o modo de rasterização, ex: contorno. ex: completa");
         this.modoRasterizacao = sc.next();
-    }
-
-    public void setConfigs(){
-        readConfigs();
-        this.dimensaoArena =
     }
 
     public void proximoPasso(){
