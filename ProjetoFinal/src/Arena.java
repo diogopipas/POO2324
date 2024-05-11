@@ -19,7 +19,7 @@ public class Arena {
     private int dimensaoComida;
     private int dimensaoCobra;
     private Comida comida;
-    private ArrayList<Obstaculo> obstaculo;
+    private ArrayList<Obstaculo> obstaculos;
     private boolean jogoAtivo = true;
     private Quadrado[][] grelha;
     private static final double DIMENSAO_CELULA = 1;
@@ -34,7 +34,7 @@ public class Arena {
         inicializarGrelha();
         this.cobra = new Cobra(dimensaoCobra, new Ponto(new Random().nextDouble(largura), new Random().nextDouble(altura))); // Posição inicial da cobra
         this.comida = new Comida(tipoComida, new Ponto(new Random().nextDouble(largura), new Random().nextDouble(altura)), dimensaoComida);
-        this.obstaculo = new ArrayList<>();
+        this.obstaculos = new ArrayList<>();
 
     }
 
@@ -132,33 +132,18 @@ public class Arena {
         return comida;
     }
 
-    public void setComida(Comida comida) {
-        this.comida = comida;
-    }
-
-    public ArrayList<Obstaculo> getObstaculo() {
-        return obstaculo;
-    }
-
-    public void setObstaculo(ArrayList<Obstaculo> obstaculo) {
-        this.obstaculo = obstaculo;
+    public ArrayList<Obstaculo> getObstaculos() {
+        return this.obstaculos;
     }
 
     public boolean isJogoAtivo() {
         return jogoAtivo;
     }
 
-    public void setJogoAtivo(boolean jogoAtivo) {
-        this.jogoAtivo = jogoAtivo;
-    }
-
     public int getLargura() {
         return largura;
     }
 
-    public void setLargura(int largura) {
-        this.largura = largura;
-    }
 
     public Quadrado[][] getGrelha() {
         return grelha;

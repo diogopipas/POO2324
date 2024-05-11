@@ -38,31 +38,16 @@ public class Comida{
         return posicaoComida;
     }
 
-    public void setPosicaoComida(Ponto posicaoComida) {
-        this.posicaoComida = posicaoComida;
-    }
-
     public String getTipoComida() {
         return tipoComida;
-    }
-
-    public void setTipoComida(String tipoComida) {
-        this.tipoComida = tipoComida;
     }
 
     public double getDimensao() {
         return dimensao;
     }
 
-    public void setDimensao(double dimensao) {
-        this.dimensao = dimensao;
-    }
-
     public Object getFormaComida() {
         return formaComida;
     }
 
-    public void setFormaComida(Object formaComida) {
-        this.formaComida = formaComida;
-    }
 }
