@@ -6,7 +6,6 @@ public class Cobra {
 
     private double dimensao; // Dimensão da aresta dos quadrados
     private ArrayList<Quadrado> partesCobra; // Lista de quadrados que compõem a cobra
-    private ArrayList<Quadrado> corpoCobra; // Lista de quadrados que compõem apenas o corpo da cobra
     private ArrayList<Ponto> posicoesCobra;
 
     public Cobra(double dimensao, Ponto posicaoInicial){
