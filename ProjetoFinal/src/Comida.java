@@ -7,18 +7,21 @@ public class Comida{
     private String tipoComida;
     private double dimensao;
     private Object formaComida;
+
+
     public Comida(String tipoComida, Ponto posicaoComida, double dimensao){
         this.posicaoComida = posicaoComida;
         this.dimensao = dimensao;
+        this.tipoComida = tipoComida;
         if(tipoComida.equals("quadrado")){
-            this.formaComida = new Quadrado(getQuadradoFromCentroid(posicaoComida));
+            this.formaComida = new Quadrado(getVerticesFromCentroid(posicaoComida));
         }
         else if(tipoComida.equals("circulo")){
             this.formaComida = new Circulo(dimensao, posicaoComida);
         }
     }
 
-    public ArrayList<Ponto> getQuadradoFromCentroid(Ponto centroide){
+    public ArrayList<Ponto> getVerticesFromCentroid(Ponto centroide){
         ArrayList<Ponto> pontos = new ArrayList<>();
         Ponto p1 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior esqueerdo
         Ponto p2 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior direito
@@ -29,5 +32,37 @@ public class Comida{
         pontos.add(p3);
         pontos.add(p4);
         return pontos;
+    }
+
+    public Ponto getPosicaoComida() {
+        return posicaoComida;
+    }
+
+    public void setPosicaoComida(Ponto posicaoComida) {
+        this.posicaoComida = posicaoComida;
+    }
+
+    public String getTipoComida() {
+        return tipoComida;
+    }
+
+    public void setTipoComida(String tipoComida) {
+        this.tipoComida = tipoComida;
+    }
+
+    public double getDimensao() {
+        return dimensao;
+    }
+
+    public void setDimensao(double dimensao) {
+        this.dimensao = dimensao;
+    }
+
+    public Object getFormaComida() {
+        return formaComida;
+    }
+
+    public void setFormaComida(Object formaComida) {
+        this.formaComida = formaComida;
     }
 }
