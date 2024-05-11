@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Cobra {
 
     private double dimensao; // Dimensão da aresta dos quadrados
-    private ArrayList<Quadrado> partesCobra; // Lista de cobra que compõem a cobra
+    private ArrayList<Quadrado> partesCobra; // Lista de quadrados que compõem a cobra
+    private ArrayList<Quadrado> corpoCobra; // Lista de quadrados que compõem apenas o corpo da cobra
     private ArrayList<Ponto> posicoesCobra;
 
     public Cobra(double dimensao, Ponto posicaoInicial){
@@ -48,6 +49,7 @@ public class Cobra {
 
     public void addNewSnakePart(double x, double y){
         Quadrado q = (Quadrado) partesCobra.get(partesCobra.size()-1).translatePolygon(x, y);
+        this.posicoesCobra.add(q.findCentroide());
         this.partesCobra.add(q);
     }
 

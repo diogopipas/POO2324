@@ -53,6 +53,15 @@ public class Retangulo extends Poligono{
         return new Retangulo(p);
     }
 
+    public boolean containsPonto(Ponto ponto){
+        double minX, maxX, minY, maxY;
+        minX = getP().get(0).getX();
+        maxX = getP().get(1).getX();
+        minY = getP().get(2).getY();
+        maxY = getP().get(0).getY();
+        return (minX <= ponto.getX() && ponto.getX() <= maxX) && (minY <= ponto.getY() && ponto.getY() <= maxY);
+    }
+
     /**
      *
      * @return o array de pontos em forma de string
