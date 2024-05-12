@@ -4,90 +4,99 @@ import java.util.ArrayList;
 
 public class Cobra {
 
-    private double dimensao; // Dimensão da aresta dos quadrados
-    private ArrayList<Quadrado> partesCobra; // Lista de quadrados que compõem a cobra
-    private ArrayList<Ponto> posicoesCobra;
+    private ArrayList<Quadrado> cobra; // Lista de cobra que compõem a cobra
 
-    public Cobra(double dimensao, Ponto posicaoInicial){
+    private double dimensao; // Dimensão da aresta dos quadrados da cobra
+
+    private Direcao ultimaDirecao;
+
+    public Cobra(double dimensao, Ponto pontoIncial){
+        ultimaDirecao = Direcao.UP;
         this.dimensao = dimensao;
-        this.partesCobra = new ArrayList<>(1);
-        this.posicoesCobra = new ArrayList<>(1);
-        Quadrado cabeca = new Quadrado(getVerticesFromCentroid(posicaoInicial));
-        this.posicoesCobra.add(cabeca.findCentroide());
-        partesCobra.add(cabeca);
+        this.cobra = new ArrayList<>();
+        this.cobra.add(getQuadradoFromCentroid(pontoIncial));
     }
 
-    public void moverCobra(int index, double newX, double newY){
-        this.partesCobra.remove(index);
-        Quadrado q = (Quadrado) this.partesCobra.get(index).translatePolygon(newX, newY);
-        this.posicoesCobra.add(index, new Ponto(newX, newY));
-        this.partesCobra.add(index, q);
-    }
-
-    public void direcionarCobra(Direcao d){
-        for (int i = partesCobra.size()-1; i > 0; i--) {
-            moverCobra(i, partesCobra.get(i-1).findCentroide().getX(), partesCobra.get(i-1).findCentroide().getY());
-        }
-        switch (d) {
-            case DOWN:
-                moverCobra(0, partesCobra.get(0).findCentroide().getX(), (partesCobra.get(0).findCentroide().getY())+1);
-                break;
-            case UP:
-                moverCobra(0, partesCobra.get(0).findCentroide().getX(), (partesCobra.get(0).findCentroide().getY())-1);
-                break;
-            case RIGHT:
-                moverCobra(0, (partesCobra.get(0).findCentroide().getX())+1, (partesCobra.get(0).findCentroide().getY()));
-                break;
-            case LEFT:
-                moverCobra(0, (partesCobra.get(0).findCentroide().getX())-1, (partesCobra.get(0).findCentroide().getY()));
-                break;
-            default:
-                break;
-        }
-    }
-
-    public void addNewSnakePart(double x, double y){
-        Quadrado q = (Quadrado) partesCobra.get(partesCobra.size()-1).translatePolygon(x, y);
-        this.posicoesCobra.add(q.findCentroide());
-        this.partesCobra.add(q);
-    }
-
-    public void come(){
-        addNewSnakePart(partesCobra.get(partesCobra.size()-1).findCentroide().getX(), partesCobra.get(partesCobra.size()-1).findCentroide().getY());
-    }
-
-    public ArrayList<Ponto> getVerticesFromCentroid(Ponto centroide){
+    public Quadrado getQuadradoFromCentroid(Ponto centroide){
         ArrayList<Ponto> pontos = new ArrayList<>();
-        Ponto p1 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior esqueerdo
-        Ponto p2 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior direito
-        Ponto p3 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior direito
-        Ponto p4 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior esqueerdo~
+        double metadeAresta = this.dimensao/2;
+        Ponto p1 = new Ponto(centroide.getX()-(metadeAresta), centroide.getY()+metadeAresta); // supperior esqueerdo
+        Ponto p2 = new Ponto(centroide.getX()+(metadeAresta), centroide.getY()+metadeAresta); // supperior direito
+        Ponto p3 = new Ponto(centroide.getX()+(metadeAresta), centroide.getY()-metadeAresta); // inferior direito
+        Ponto p4 = new Ponto(centroide.getX()-(metadeAresta), centroide.getY()-metadeAresta); // inferior esqueerdo~
         pontos.add(p1);
         pontos.add(p2);
         pontos.add(p3);
         pontos.add(p4);
-        return pontos;
+        return new Quadrado(pontos);
+    }
+
+    public void moverCobra(int position, double newX, double newY) {
+        Quadrado quadAtual = this.cobra.get(position);
+        Quadrado quadNovo = (Quadrado) quadAtual.translatePolygon(newX - quadAtual.findCentroide().getX(), newY - quadAtual.findCentroide().getY());
+        this.cobra.set(position, quadNovo);
+    }
+
+    public void direcionarCobra(Direcao direcao){
+        if(isDirecaoValida(direcao)){
+            for (int i = this.cobra.size()-1; i > 0; i--) {
+                moverCobra(i, this.cobra.get(i-1).findCentroide().getX(), this.cobra.get(i-1).findCentroide().getY());
+            }
+            switch (direcao) {
+                case DOWN:
+                    moverCobra(0, this.cobra.get(0).findCentroide().getX(), (this.cobra.get(0).findCentroide().getY())+ this.dimensao);
+                    break;
+                case UP:
+                    moverCobra(0, this.cobra.get(0).findCentroide().getX(), (this.cobra.get(0).findCentroide().getY())- this.dimensao);
+                    break;
+                case RIGHT:
+                    moverCobra(0, (this.cobra.get(0).findCentroide().getX())+ this.dimensao, (this.cobra.get(0).findCentroide().getY()));
+                    break;
+                case LEFT:
+                    moverCobra(0, (this.cobra.get(0).findCentroide().getX())- this.dimensao, (this.cobra.get(0).findCentroide().getY()));
+                    break;
+                default:
+                    break;
+            }
+            this.ultimaDirecao = direcao;
+        }
+    }
+
+    /*
+    public void snakeEats(){
+        addNewSnakePart(new Ponto(cobra.get(cobra.size()-1).findCentroide().getX(), cobra.get(cobra.size()-1).findCentroide().getY()));
+    }
+    */
+
+    // public void addNewSnakePart(Ponto ponto){
+    //     this.cobra.add(new Quadrado(ponto, this.dimensao));    // Em que pontos é que o novo quadrado é adicionado? Deve receber argumentos?
+    // }
+
+    private boolean isDirecaoValida(Direcao novaDirecao) {
+        if (ultimaDirecao == null) {
+            return true;  // Sem restrições para o primeiro movimento
+        }
+        // Impede movimento na direção oposta
+        return !((ultimaDirecao == Direcao.UP && novaDirecao == Direcao.DOWN) ||
+                (ultimaDirecao == Direcao.DOWN && novaDirecao == Direcao.UP) ||
+                (ultimaDirecao == Direcao.LEFT && novaDirecao == Direcao.RIGHT) ||
+                (ultimaDirecao == Direcao.RIGHT && novaDirecao == Direcao.LEFT));
     }
 
 
     public Quadrado getCabeca() {
-        return this.partesCobra.get(0); // ?
+        return this.cobra.get(0);
     }
 
-    public int getTamanho() {
-        return this.partesCobra.size();
-    }
-
-    public ArrayList<Quadrado> getPartesCobra() {
-        return this.partesCobra;
-    }
-
-    public ArrayList<Ponto> getPosicoesCobra() {
-        return this.posicoesCobra;
+    public ArrayList<Quadrado> getCobra() {
+        return this.cobra;
     }
 
     public double getDimensao() {
         return this.dimensao;
     }
 
+    public int getTamanho() {
+        return this.cobra.size();
+    }
 }

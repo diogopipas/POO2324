@@ -9,8 +9,7 @@ public class InterfaceTextual {
     public InterfaceTextual(Simulador sl){
         this.sl = sl;
         this.arena = sl.getArena();
-        this.partesCobraCopia = arena.getCobra().getPartesCobra();
-        this.partesCobraCopia.remove(0);
+        this.partesCobraCopia = arena.getCobra().getCobra();
         this.corpoCobra = this.partesCobraCopia;
     }
 
@@ -19,7 +18,7 @@ public class InterfaceTextual {
             for (int j = 1; j < this.arena.getLargura(); j++) {
                 Ponto ponto = new Ponto(j, i);
                 boolean printed = false;
-                if (arena.getCobra().getPartesCobra().get(0).containsPonto(ponto)) {
+                if (arena.getCobra().getCobra().get(0).containsPonto(ponto)) {
                     System.out.print("H");
                     printed = true;
                 } else {
@@ -53,7 +52,6 @@ public class InterfaceTextual {
                 }
             }
             System.out.println(); // Move to the next line after printing each row
-            System.out.println("");
         }
     }
 

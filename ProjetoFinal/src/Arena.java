@@ -32,16 +32,17 @@ public class Arena {
         this.tipoComida = tipoComida;
         this.dimensaoCobra = dimensaoCobra;
         inicializarGrelha();
-        this.cobra = new Cobra(dimensaoCobra, new Ponto(new Random().nextDouble(largura), new Random().nextDouble(altura))); // Posição inicial da cobra
-        this.comida = new Comida(tipoComida, new Ponto(new Random().nextDouble(largura), new Random().nextDouble(altura)), dimensaoComida);
+        this.cobra = new Cobra(dimensaoCobra, new Ponto(new Random().nextDouble(1, largura), new Random().nextDouble(1, altura))); // Posição inicial da cobra
+        this.comida = new Comida(tipoComida, new Ponto(new Random().nextDouble(1, largura), new Random().nextDouble(1, altura)), dimensaoComida);
         this.obstaculos = new ArrayList<>();
 
     }
 
     public void atualizar(Direcao d) {
-        cobra.direcionarCobra(d);
+
+        this.cobra.direcionarCobra(d);
         if (cobra.getCabeca().getP().contains(this.comida.getPosicaoComida())) { // Verifica se a cabeça da cobra está na comida
-            cobra.come();
+            //cobra.come();
             this.comida = new Comida(this.tipoComida, new Ponto(new Random().nextDouble(this.largura), new Random().nextDouble(this.altura)), this.dimensaoComida); // Gera nova comida
         }
 
@@ -92,40 +93,20 @@ public class Arena {
         return altura;
     }
 
-    public void setAltura(int altura) {
-        this.altura = altura;
-    }
-
     public Cobra getCobra() {
-        return cobra;
-    }
-
-    public void setCobra(Cobra cobra) {
-        this.cobra = cobra;
+        return this.cobra;
     }
 
     public int getDimensaoCobra() {
         return dimensaoCobra;
     }
 
-    public void setDimensaoCobra(int dimensaoCobra) {
-        this.dimensaoCobra = dimensaoCobra;
-    }
-
     public String getTipoComida() {
         return tipoComida;
     }
 
-    public void setTipoComida(String tipoComida) {
-        this.tipoComida = tipoComida;
-    }
-
     public int getDimensaoComida() {
         return dimensaoComida;
-    }
-
-    public void setDimensaoComida(int dimensaoComida) {
-        this.dimensaoComida = dimensaoComida;
     }
 
     public Comida getComida() {
@@ -147,9 +128,5 @@ public class Arena {
 
     public Quadrado[][] getGrelha() {
         return grelha;
-    }
-
-    public void setGrelha(Quadrado[][] grelha) {
-        this.grelha = grelha;
     }
 }

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Simulador {
@@ -33,6 +34,7 @@ public class Simulador {
     }
 
     public void proximoPasso(String input){
+        System.out.println("");
         arena.atualizar(stringToEnum(input));
         arena.verificarColisoes();
     }
