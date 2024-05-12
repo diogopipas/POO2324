@@ -105,7 +105,7 @@ public class Cobra {
         return this.cobra.size();
     }
 
-    public double getAngulo() {
+    public int getAngulo() {
         switch (ultimaDirecao) {
             case RIGHT:
                 return 0;  // Direita

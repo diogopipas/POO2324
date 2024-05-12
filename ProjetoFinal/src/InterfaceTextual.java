@@ -69,6 +69,11 @@ public class InterfaceTextual {
             }
             System.out.println(); // Move to the next line after printing each row
         }
+        System.out.print("Dir H: " + this.arena.getCobra().getAngulo());
+        for(int i = 0; i < this.arena.getLargura(); i+=7){
+            System.out.print("\t");
+        }
+        System.out.println("Pontos: 0");
     }
 
     public void printStepContorno() {

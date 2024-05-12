@@ -20,7 +20,7 @@ public class Arena {
     private int dimensaoComida;
     private int dimensaoCobra;
     private Comida comida;
-    private ArrayList<Obstaculo> obstaculos;
+    private ArrayList<Poligono> obstaculos;
     private boolean jogoAtivo = true;
     private Quadrado[][] grelha;
     private static final double DIMENSAO_CELULA = 1;
@@ -35,7 +35,7 @@ public class Arena {
         inicializarGrelha();
         this.cobra = gerarCobra();
         this.comida = gerarComida();
-        this.obstaculos = new ArrayList<>();
+        this.obstaculos = obstaculos;
 
     }
 
@@ -67,6 +67,8 @@ public class Arena {
             }
         }
     }
+
+
 
     public Comida gerarComida(){
         Ponto p;
@@ -137,7 +139,7 @@ public class Arena {
         return comida;
     }
 
-    public ArrayList<Obstaculo> getObstaculos() {
+    public ArrayList<Poligono> getObstaculos() {
         return this.obstaculos;
     }
 

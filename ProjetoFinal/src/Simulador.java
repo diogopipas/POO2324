@@ -4,6 +4,8 @@
  * @version 1.0
  */
 
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -38,6 +40,18 @@ public class Simulador {
         System.out.println("Introduza o modo de interface, ex: grafica (NOT AVAILABLE). ex: textual");
         this.modoInterface = sc.next();
     }
+
+    /*
+    public ArrayList<Poligono> parseObstaculos(){
+        Class<?> obstaculoClass;
+        Constructor<?> obstaculoConstrutor;
+        String[] obstaculosParsed;
+        for(int i = 0; i < this.obstaculos.length; i++){
+            obstaculoClass = Class.forName(this.obstaculos[0].split(" "), 2);
+        }
+    }
+
+     */
 
     public void proximoPasso(String input){
         arena.atualizar(stringToEnum(input));
