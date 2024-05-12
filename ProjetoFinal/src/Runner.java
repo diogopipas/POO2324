@@ -19,7 +19,13 @@ public class Runner {
                 isRunning = false;
             } else {
                 this.sl.proximoPasso(input);
-                this.it.printStep();
+                if(this.sl.getModoRasterizacao().equals("completa")){
+                    this.it.printStepCompleta();
+                }
+                else {
+                    this.it.printStepCompleta();
+                }
+
             }
         }
     }

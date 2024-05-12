@@ -34,9 +34,8 @@ public class Simulador {
     }
 
     public void proximoPasso(String input){
-        System.out.println("");
         arena.atualizar(stringToEnum(input));
-        arena.verificarColisoes();
+        //arena.verificarColisoes();
     }
 
     public Direcao stringToEnum(String d){
@@ -51,6 +50,10 @@ public class Simulador {
 
     public Arena getArena() {
         return arena;
+    }
+
+    public String getModoRasterizacao(){
+        return this.modoRasterizacao;
     }
 
 }

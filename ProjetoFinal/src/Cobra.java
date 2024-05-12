@@ -15,6 +15,7 @@ public class Cobra {
         this.dimensao = dimensao;
         this.cobra = new ArrayList<>();
         this.cobra.add(getQuadradoFromCentroid(pontoIncial));
+        this.cobra.add(getQuadradoFromCentroid(new Ponto(pontoIncial.getX(), pontoIncial.getY() + dimensao)));
     }
 
     public Quadrado getQuadradoFromCentroid(Ponto centroide){

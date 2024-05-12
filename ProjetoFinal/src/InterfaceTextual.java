@@ -13,7 +13,7 @@ public class InterfaceTextual {
         this.corpoCobra = this.partesCobraCopia;
     }
 
-    public void printStep() {
+    public void printStepCompleta() {
         for (int i = 1; i < this.arena.getAltura(); i++) {
             for (int j = 1; j < this.arena.getLargura(); j++) {
                 Ponto ponto = new Ponto(j, i);
