@@ -19,7 +19,6 @@ public class interfaceTextual {
             for (int j = 0; j < this.arena.getLargura(); j++) {
                 Ponto ponto = new Ponto(j, i);
                 boolean printed = false;
-
                 if (arena.getCobra().getPartesCobra().get(0).containsPonto(ponto)) {
                     System.out.print("H");
                     printed = true;
