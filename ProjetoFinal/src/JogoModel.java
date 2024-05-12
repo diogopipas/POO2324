@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-class JogoModel implements Arena, Cobra, Comida{
+class JogoModel{
 
     static final int TOTAL_GAME_AREA = 20;
 
@@ -25,7 +25,7 @@ class JogoModel implements Arena, Cobra, Comida{
     public JogoModel(){
         for (Celula[] cellgrid1 : cellgrid) {
             for (int j = 0; j < cellgrid1.length; j++) {
-                cellgrid1[j] = new Celula();
+                //cellgrid1[j] = new Celula();
             }
         }
         generateObstacle();
@@ -136,6 +136,7 @@ class JogoModel implements Arena, Cobra, Comida{
         return cellgrid;
     }
 
+    /*
     public int getCellType(int x, int y){
         return cellgrid[x][y].getCellType();
     }
@@ -143,6 +144,8 @@ class JogoModel implements Arena, Cobra, Comida{
     void setCellType(int x, int y, int type){
         cellgrid[x][y].setCellType(y);
     }
+
+     */
 
     /**
      * Misc methods
@@ -229,7 +232,7 @@ class JogoModel implements Arena, Cobra, Comida{
             }
         }
 
-
+    /*
         for (int y = 0; y < cellgrid.length; y++) {
             for (int x = 0; x < cellgrid[y].length; x++) {
                 if (SnakeCoordinates.contains(new Ponto(x, y))) {
@@ -244,6 +247,8 @@ class JogoModel implements Arena, Cobra, Comida{
                 else {nextVersion[y][x] = new Celula(0);}
             }
         }
+
+     */
 
         cellgrid = nextVersion;
     }

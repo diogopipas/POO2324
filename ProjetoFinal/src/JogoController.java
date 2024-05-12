@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 class JogoController {
+    /*
     private final JogoModel model;
     private final JogoView view;
     private final PainelSul spanel;
@@ -120,4 +121,6 @@ class JogoController {
             }
         })).start();
     }
+
+     */
 }

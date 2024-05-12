@@ -8,14 +8,14 @@ public class Simulador {
 
 
     public Simulador(){
-        sc = new Scanner(System.in);
+        this.sc = new Scanner(System.in);
         readConfigs();
         this.arena = new Arena(Integer.parseInt(this.dimensaoArena[0]), Integer.parseInt(this.dimensaoArena[1]), Integer.parseInt(this.dimensaoComida), this.tipoComida, Integer.parseInt(this.dimensaoCobra));
     }
 
     public void readConfigs(){
         System.out.println("Introduza a dimensao da arena, ex: 200 100");
-        this.dimensaoArena = sc.next().split(" ", 2);
+        this.dimensaoArena = sc.nextLine().split(" ", 2);
         System.out.println("Introduza a dimensao da cobra, ex: 30");
         this.dimensaoCobra = sc.next();
         System.out.println("Introduza a dimensao da comida, ex: 3");

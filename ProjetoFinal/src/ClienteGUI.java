@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ClienteGUI {
-
+    /*
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -46,4 +46,6 @@ class Frame extends JFrame {
 
 
     }
+
+     */
 }

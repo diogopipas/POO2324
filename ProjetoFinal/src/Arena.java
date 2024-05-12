@@ -68,8 +68,8 @@ public class Arena {
 
     public void inicializarGrelha(){
         this.grelha = new Quadrado[this.largura][this.altura];
-        for(int i = 0; i < this.altura; i++){
-            for(int j = 0; j < this.largura; j++){
+        for(int i = 1; i < this.altura; i++){
+            for(int j = 1; j < this.largura; j++){
                 this.grelha[j][i] = new Quadrado(getVerticesFromCentroid(new Ponto(j, i)));
             }
         }
@@ -80,7 +80,7 @@ public class Arena {
         Ponto p1 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()+DIMENSAO_CELULA/2); // supperior esqueerdo
         Ponto p2 = new Ponto(centroide.getX()+DIMENSAO_CELULA/2, centroide.getY()+DIMENSAO_CELULA/2); // supperior direito
         Ponto p3 = new Ponto(centroide.getX()+DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); // inferior direito
-        Ponto p4 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); // inferior esqueerdo~
+        Ponto p4 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); // inferior esquerdo
         pontos.add(p1);
         pontos.add(p2);
         pontos.add(p3);
