@@ -1,8 +1,9 @@
-/**
+/** Classe responsável pela inicialização de todos os Objetos presentes na Arena,
+ * incluindo a cobra, a comida e os obstáculos
+ *
  * @version 1.0
  * @author André Santos, Diogo Porto
- * Esta classe é responsável pela criação da grelha de células, e pela deteção de colisão entre a cobra e as
- * paredes da arena
+ *
  */
 
 import java.lang.reflect.InvocationTargetException;
@@ -32,8 +33,8 @@ public class Arena {
         this.tipoComida = tipoComida;
         this.dimensaoCobra = dimensaoCobra;
         inicializarGrelha();
-        this.cobra = new Cobra(dimensaoCobra, new Ponto(new Random().nextDouble(1, largura), new Random().nextDouble(1, altura))); // Posição inicial da cobra
-        this.comida = new Comida(tipoComida, new Ponto(new Random().nextDouble(1, largura), new Random().nextDouble(1, altura)), dimensaoComida);
+        this.cobra = gerarCobra();
+        this.comida = gerarComida();
         this.obstaculos = new ArrayList<>();
 
     }
@@ -65,6 +66,29 @@ public class Arena {
                 System.exit(0);
             }
         }
+    }
+
+    public Comida gerarComida(){
+        Ponto p;
+        do {
+            p = new Ponto(new Random().nextDouble(this.dimensaoComida, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoComida, this.altura-this.dimensaoComida));
+        } while (intersectsSnake(p));
+
+        return new Comida(this.tipoComida, p, this.dimensaoComida);
+    }
+
+    public Cobra gerarCobra(){
+        return new Cobra(this.dimensaoCobra, new Ponto(new Random().nextDouble(this.dimensaoComida, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoCobra, this.altura-this.dimensaoCobra)));
+    }
+
+    private boolean intersectsSnake(Ponto p) {
+        // Check if the point intersects with any part of the snake
+        for (Quadrado corpo : cobra.getCobra()) {
+            if (corpo.containsPonto(p)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void inicializarGrelha(){

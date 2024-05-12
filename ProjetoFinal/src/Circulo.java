@@ -1,3 +1,9 @@
+/** Classse responsável pela criação do circulo
+ *
+ * @author André Santos, Diogo Porto
+ * @version 1.0
+ */
+
 import java.util.ArrayList;
 
 public class Circulo {
@@ -14,6 +20,9 @@ public class Circulo {
         return ponto.dist(this.centro) <= this.raio;
     }
 
+    public Ponto getCentro(){
+        return this.centro;
+    }
     public double area() {
         return Math.PI * raio * raio;
     }

@@ -1,4 +1,5 @@
-/**
+/** Classe responsável pela criação do poligono
+ *
  * @version 1.2
  * @author André Santos, Diogo Porto
  */
@@ -240,6 +241,15 @@ public class Poligono{
             translatedPoints.add(ponto.translatePoint(dx, dy));
         }
         return initPolygon(translatedPoints);
+    }
+
+    public boolean pointOnSegment(Ponto p){
+        for(int i = 0; i < this.getSr().size(); i++){
+            if(this.getSr().get(i).onSegment(p)){
+                return true;
+            }
+        }
+        return false;
     }
 
     protected Poligono initPolygon(ArrayList<Ponto> p){

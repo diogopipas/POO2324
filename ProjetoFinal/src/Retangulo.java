@@ -1,4 +1,5 @@
-/**
+/** Classe responsável pela criação do retangulo
+ *
  * @version 1.0
  * @author André Santos, Diogo Porto
  */

@@ -1,8 +1,10 @@
-import java.util.Objects;
-
-/** @version 1.2
- * @author Diogo Porto
+/** Classe responsável pela criação do Ponto
+ *
+ * @author André Santos, Diogo Porto
+ * @version 1.2
  */
+
+import java.util.Objects;
 class Ponto {
     private double x, y;
 
@@ -64,7 +66,7 @@ class Ponto {
      */
     public void check(double coordenada){
         if(coordenada < 0){
-            System.out.println("Ponto:vi");
+            //System.out.println("Ponto:vi");
             System.exit(0);
         }
     }

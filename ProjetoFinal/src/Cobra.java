@@ -1,4 +1,8 @@
-
+/** Classe responsável pela criação da cobra
+ *
+ * @author André Santos, Diogo Porto
+ * @version 1.0
+ */
 import java.util.ArrayList;
 //import java.util.Random;
 
@@ -99,5 +103,20 @@ public class Cobra {
 
     public int getTamanho() {
         return this.cobra.size();
+    }
+
+    public double getAngulo() {
+        switch (ultimaDirecao) {
+            case RIGHT:
+                return 0;  // Direita
+            case UP:
+                return 90;  // Cima
+            case LEFT:
+                return 180;  // Esquerda
+            case DOWN:
+                return 270;  // Baixo
+            default:
+                return 0;  // Valor padrão ou erro
+        }
     }
 }

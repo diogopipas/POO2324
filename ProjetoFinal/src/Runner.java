@@ -1,3 +1,10 @@
+/** Classe reponsável por correr o jogo, ou seja, a leitura dos inputs que vão movimentar a cobra,
+ * assim como o chamamento dos metodos que efetuam e imprimem os proximos passos da simulação
+ *
+ * @author André Santos, Diogo Porto
+ * @version 1.0
+ */
+
 import java.util.Scanner;
 
 public class Runner {
@@ -22,8 +29,8 @@ public class Runner {
                 if(this.sl.getModoRasterizacao().equals("completa")){
                     this.it.printStepCompleta();
                 }
-                else {
-                    this.it.printStepCompleta();
+                else if(this.sl.getModoRasterizacao().equals("contorno")){
+                    this.it.printStepContorno();
                 }
 
             }
