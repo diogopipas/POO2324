@@ -16,7 +16,6 @@ public class Runner {
         this.sc = new Scanner(System.in);
         this.it = new InterfaceTextual(sl);
     }
-
     public void run() {
         boolean isRunning = true;
         while (isRunning) {

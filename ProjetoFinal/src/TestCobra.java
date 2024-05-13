@@ -170,5 +170,4 @@ public class TestCobra {
         Ponto posicaoCabecaAposMovimentos = cobra.getCabeca().findCentroide();
         assertEquals("A cobra não deve mover para baixo imediatamente após mover para cima", 5, posicaoCabecaAposMovimentos.getY(), 0.01);
         }
-
 }

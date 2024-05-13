@@ -63,7 +63,7 @@ public class Simulador {
             case "U" -> Direcao.UP;
             case "R" -> Direcao.RIGHT;
             case "L" -> Direcao.LEFT;
-            default -> null;
+            default -> throw new IllegalArgumentException("OOPS!: Direção inválida! " + d);
         };
     }
 
@@ -74,5 +74,4 @@ public class Simulador {
     public String getModoRasterizacao(){
         return this.modoRasterizacao;
     }
-
 }
