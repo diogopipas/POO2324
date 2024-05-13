@@ -73,9 +73,31 @@ public class Cobra {
     }
     */
 
-    // public void addNewSnakePart(Ponto ponto){
-    //     this.cobra.add(new Quadrado(ponto, this.dimensao));    // Em que pontos é que o novo quadrado é adicionado? Deve receber argumentos?
-    // }
+    public void addNewSnakePart() {
+        Quadrado ultimoSegmento = cobra.get(cobra.size() - 1);
+        Ponto ultimaPosicao = ultimoSegmento.findCentroide();
+        Ponto novaPosicao;
+    
+        switch (ultimaDirecao) {
+            case UP:
+                novaPosicao = new Ponto(ultimaPosicao.getX(), ultimaPosicao.getY() + this.dimensao);
+                break;
+            case DOWN:
+                novaPosicao = new Ponto(ultimaPosicao.getX(), ultimaPosicao.getY() - this.dimensao);
+                break;
+            case LEFT:
+                novaPosicao = new Ponto(ultimaPosicao.getX() + this.dimensao, ultimaPosicao.getY());
+                break;
+            case RIGHT:
+                novaPosicao = new Ponto(ultimaPosicao.getX() - this.dimensao, ultimaPosicao.getY());
+                break;
+            default:
+                // Por padrão, adiciona na mesma posição (não deve acontecer)
+                novaPosicao = ultimaPosicao;
+        }
+    
+        cobra.add(getQuadradoFromCentroid(novaPosicao));
+    }
 
     private boolean isDirecaoValida(Direcao novaDirecao) {
         if (ultimaDirecao == null) {
@@ -86,6 +108,20 @@ public class Cobra {
                 (ultimaDirecao == Direcao.DOWN && novaDirecao == Direcao.UP) ||
                 (ultimaDirecao == Direcao.LEFT && novaDirecao == Direcao.RIGHT) ||
                 (ultimaDirecao == Direcao.RIGHT && novaDirecao == Direcao.LEFT));
+    }
+
+    public boolean verificarColisaoComCorpo() {
+        Quadrado cabeca = getCabeca();
+        Ponto centroCabeca = cabeca.findCentroide();
+    
+        // Começa a verificação a partir do segundo segmento do corpo
+        for (int i = 1; i < getCobra().size(); i++) {
+            Quadrado segmento = getCobra().get(i);
+            if (segmento.containsPonto(centroCabeca)) {
+                return true;  // Colisão detectada
+            }
+        }
+        return false;  // Nenhuma colisão detectada
     }
 
 

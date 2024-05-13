@@ -8,4 +8,5 @@ public enum Direcao {
     LEFT,
     UP,
     DOWN,
+    NONE
 }

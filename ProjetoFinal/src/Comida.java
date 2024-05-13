@@ -56,5 +56,4 @@ public class Comida{
     public Object getFormaComida() {
         return formaComida;
     }
-
 }

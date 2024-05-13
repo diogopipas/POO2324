@@ -73,7 +73,9 @@ public class InterfaceTextual {
         for(int i = 0; i < this.arena.getLargura(); i+=7){
             System.out.print("\t");
         }
-        System.out.println("Pontos: 0");
+        System.out.println("Pontos: " + this.arena.getPontuacao());
+        System.out.println("Cobra: " + this.arena.getCobra().getCabeca().findCentroide());
+        System.out.println("Comida: " + this.arena.getComida().getPosicaoComida());
     }
 
     public void printStepContorno() {

@@ -15,7 +15,6 @@ public class Simulador {
     private String tipoComida, modoJogo, modoRasterizacao, modoInterface, dimensaoCobra, dimensaoComida;
     private Arena arena;
 
-
     public Simulador(){
         this.sc = new Scanner(System.in);
         readConfigs();
@@ -31,14 +30,14 @@ public class Simulador {
         this.dimensaoComida = sc.next();
         System.out.println("Introduza o tipo de comida, ex: quadrado. ex: circulo");
         this.tipoComida = sc.next();
-        System.out.println("Introduza os obstaculos no seguinte formato, ex: Quadrado 1 1 2 1 2 2 1 2,Triangulo 2 2 4 2 3 4 ");
+        /*System.out.println("Introduza os obstaculos no seguinte formato, ex: Quadrado 1 1 2 1 2 2 1 2,Triangulo 2 2 4 2 3 4 ");
         this.obstaculos = sc.next().split(",");
         System.out.println("Introduza o modo de jogo, ex: manual. ex: automatico (NOT AVAILABLE)");
-        this.modoJogo = sc.next();
+        this.modoJogo = sc.next();*/
         System.out.println("Introduza o modo de rasterização, ex: contorno (TODOS OS OBJETOS TÊM DE TER DIMENSÃO MAIOR QUE 3). ex: completa");
         this.modoRasterizacao = sc.next();
-        System.out.println("Introduza o modo de interface, ex: grafica (NOT AVAILABLE). ex: textual");
-        this.modoInterface = sc.next();
+        //System.out.println("Introduza o modo de interface, ex: grafica (NOT AVAILABLE). ex: textual");
+        //this.modoInterface = sc.next();
     }
 
     /*
