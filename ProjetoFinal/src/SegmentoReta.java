@@ -1,5 +1,4 @@
-/** Classe responsável pela criação do Segmento de reta
- *
+/**
  * @version 1.2
  * @author André Santos, Diogo Porto
  */
@@ -96,3 +95,4 @@ public class SegmentoReta extends Reta{
     }
 
 }
+
