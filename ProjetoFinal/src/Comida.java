@@ -1,4 +1,4 @@
-/** Classe responsável pela criação da comida
+W/** Classe responsável pela criação da comida
  *
  * @author André Santos, Diogo Porto
  * @version 1.0

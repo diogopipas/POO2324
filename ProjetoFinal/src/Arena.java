@@ -69,14 +69,12 @@ public class Arena {
         }
     }
 
-
-
     public Comida gerarComida() {
         Random random = new Random();
         int x, y;
         do {
-            x = random.nextInt(largura);  // gera um valor entre 0 (inclusive) e largura (exclusive)
-            y = random.nextInt(altura);   // gera um valor entre 0 (inclusive) e altura (exclusive)
+            x = random.nextInt(dimensaoComida,this.largura - dimensaoComida);  // gera um valor entre 0 (inclusive) e largura (exclusive)
+            y = random.nextInt(dimensaoComida,this.altura - dimensaoComida);   // gera um valor entre 0 (inclusive) e altura (exclusive)
         } while (intersectsSnake(new Ponto(x, y)));  // Garante que a comida não apareça dentro da cobra
     
         comida = new Comida(tipoComida, new Ponto(x, y), dimensaoComida);
