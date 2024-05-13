@@ -1,5 +1,6 @@
-/** Classe responsável pela
- *
+/** Classe responsável pela cria criação do obstaculo
+ * @author André Santos, Diogo Porto
+ * @version 1.0
  */
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Obstaculo {
     public Obstaculo(Poligono poligono, Ponto posicao){
         this.poligono = poligono;
         this.posicao = posicao;
+
     }
 
     public Poligono getPoligono() {
@@ -19,4 +21,5 @@ public class Obstaculo {
     public Ponto getPosicao() {
         return posicao;
     }
+
 }

@@ -17,8 +17,14 @@ public class Runner {
         this.it = new InterfaceTextual(sl);
     }
 
+
     public void run() {
         boolean isRunning = true;
+        if (this.sl.getModoRasterizacao().equals("completa")) {
+            this.it.printStepCompleta();
+        } else if (this.sl.getModoRasterizacao().equals("contorno")) {
+            this.it.printStepContorno();
+        }
         while (isRunning) {
             System.out.println("Introduza a próxima direção da cobra, ex: L (esquerda), R (direita), U (cima), D (baixo), ou Q para sair:");
             String input = sc.next();
@@ -32,6 +38,7 @@ public class Runner {
                     } else if (this.sl.getModoRasterizacao().equals("contorno")) {
                         this.it.printStepContorno();
                     }
+
                 }catch(IllegalArgumentException e){
                     System.out.println("Input inválido, tente novamente");
                 }

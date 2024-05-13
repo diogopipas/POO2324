@@ -52,6 +52,60 @@ public class InterfaceTextual {
                         }
                     }
 
+
+                    for (Obstaculo obstaculo : arena.getObstaculos()) {
+                        if (obstaculo.getPoligono().containsPonto(ponto)) {
+                            System.out.print("O");
+                            printed = true;
+                            break;
+                        }
+                    }
+
+                }
+                if (!printed) {
+                    System.out.print(".");
+                }
+            }
+            System.out.println(); // Move to the next line after printing each row
+        }
+        System.out.print("Dir H: " + this.arena.getCobra().getAngulo());
+        for(int i = 0; i < this.arena.getLargura(); i+=7){
+            System.out.print("\t");
+        }
+        System.out.println("Pontos:" + this.arena.getPontuacao());
+    }
+
+    public void printStepContorno() {
+        for (int i = 1; i < this.arena.getAltura(); i++) {
+            for (int j = 1; j < this.arena.getLargura(); j++) {
+                Ponto ponto = new Ponto(j, i);
+                boolean printed = false;
+                if (arena.getCobra().getCabeca().containsPonto(ponto) && !(arena.getCobra().getCabeca().findCentroide().equals(ponto))) {
+                    System.out.print("H");
+                    printed = true;
+                } else {
+                    for (Quadrado corpo : arena.getCobra().getCobra()) {
+                        if (corpo.containsPonto(ponto) && corpo != arena.getCobra().getCabeca()) {
+                            System.out.print("T");
+                            printed = true;
+                            break;
+                        }
+                    }
+
+                    if (!printed && arena.getComida().getFormaComida() instanceof Circulo) {
+                        Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
+                        if (circulo.containsPonto(ponto) && !ponto.equals(circulo.getCentro())) {
+                            System.out.print("F");
+                            printed = true;
+                        }
+                    } else if (!printed) {
+                        Quadrado quadrado = new Quadrado(arena.getComida().getVerticesFromCentroid(arena.getComida().getPosicaoComida()));
+                        if (quadrado.containsPonto(ponto)) {
+                            System.out.print("F");
+                            printed = true;
+                        }
+                    }
+
                     for (Obstaculo obstaculo : arena.getObstaculos()) {
                         if (obstaculo.getPoligono().containsPonto(ponto)) {
                             System.out.print("O");
@@ -66,62 +120,8 @@ public class InterfaceTextual {
             }
             System.out.println(); // Move to the next line after printing each row
         }
-        System.out.print("Dir H: " + this.arena.getCobra().getAngulo());
-        for(int i = 0; i < this.arena.getLargura(); i+=7){
-            System.out.print("\t");
-        }
-        System.out.println(this.arena.getPontuacao());
     }
 
-    public void printStepContorno() {
-            for (int i = 1; i < this.arena.getAltura(); i++) {
-                for (int j = 1; j < this.arena.getLargura(); j++) {
-                    Ponto ponto = new Ponto(j, i);
-                    boolean printed = false;
-                    if (arena.getCobra().getCobra().get(0).pointOnSegment(ponto)) {
-                        System.out.print("H");
-                        printed = true;
-                    } else {
-                        for (Quadrado corpo : this.corpoCobra) {
-                            if (corpo.pointOnSegment(ponto)) {
-                                System.out.print("T");
-                                printed = true;
-                                break;
-                            }
-                        }
-
-                        if (arena.getComida().getFormaComida() instanceof Circulo) {
-                            Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
-                            if (circulo.containsPonto(ponto) && !ponto.equals(circulo.getCentro())) {
-                                System.out.print("F");
-                                printed = true;
-                            }
-                        } else {
-                            Quadrado quadrado = new Quadrado(arena.getComida().getVerticesFromCentroid(arena.getComida().getPosicaoComida()));
-                            if (quadrado.pointOnSegment(ponto)) {
-                                System.out.print("F");
-                                printed = true;
-                            }
-                        }
-                    /*
-                    // Check if the current point contains an object
-                    for (Poligono obstaculo : arena.getObstaculos()) {
-                        if (obstaculo.containsPonto(ponto)) {
-                            System.out.print("O");
-                            printed = true;
-                            break;
-                        }
-                    }
-                   */
-                        // Check if the current point contains food
-                    }
-                    if (!printed) {
-                        System.out.print(".");
-                    }
-                }
-                System.out.println(); // Move to the next line after printing each row
-            }
-        }
 
 }
 

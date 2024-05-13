@@ -20,25 +20,25 @@ public class Simulador {
     public Simulador(){
         this.sc = new Scanner(System.in);
         readConfigs();
-        this.arena = new Arena(Integer.parseInt(this.dimensaoArena[0]), Integer.parseInt(this.dimensaoArena[1]), Integer.parseInt(this.dimensaoComida), this.tipoComida, Integer.parseInt(this.dimensaoCobra), generateObstaculoPoligonos());
+        this.arena = new Arena(Integer.parseInt(this.dimensaoArena[0]), Integer.parseInt(this.dimensaoArena[1]), Integer.parseInt(this.dimensaoComida), this.tipoComida, Integer.parseInt(this.dimensaoCobra), generateObstaculoPoligonos(), parseObstaculoTypes());
     }
 
     public void readConfigs(){
-        System.out.println("Introduza a dimensao da arena, ex: 200 100");
+        System.out.println("Introduza a dimensao da arena, ex: 30 30");
         this.dimensaoArena = sc.nextLine().split(" ", 2);
-        System.out.println("Introduza a dimensao da cobra, ex: 30");
+        System.out.println("Introduza a dimensao da cobra, ex: 3");
         this.dimensaoCobra = sc.nextLine();
-        System.out.println("Introduza a dimensao da comida, ex: 3");
+        System.out.println("Introduza a dimensao da comida, ex: 2");
         this.dimensaoComida = sc.nextLine();
         System.out.println("Introduza o tipo de comida, ex: quadrado. ex: circulo");
         this.tipoComida = sc.nextLine();
-        System.out.println("Introduza os obstaculos no seguinte formato, ex: Quadrado 4 4 6 4 6 6 4 6,Triangulo 2 2 4 2 3 4");
+        System.out.println("Introduza os obstaculos no seguinte formato, ex: Quadrado Estatico 4 4 6 4 6 6 4 6,Triangulo Estatico 8 8 10 8 9 10. ex: Triangulo Dinamico 8 8 10 8 9 10 ");
         this.obstaculos = sc.nextLine().split(",");
         System.out.println("Introduza o modo de jogo, ex: manual. ex: automatico (NOT AVAILABLE)");
         this.modoJogo = sc.nextLine();
         System.out.println("Introduza o modo de rasterização, ex: completa. ex: contorno.");
         this.modoRasterizacao = sc.nextLine();
-        System.out.println("Introduza o modo de interface, ex: grafica (NOT AVAILABLE). ex: textual");
+        System.out.println("Introduza o modo de interface, ex: textual. ex: grafica (NOT AVAILABLE). ");
         this.modoInterface = sc.nextLine();
     }
 
@@ -58,23 +58,30 @@ public class Simulador {
                 e.printStackTrace();
             }
         }
-        System.out.println(poligonos);
         return poligonos;
     }
 
     public ArrayList<String> parseObstaculosName(){
         ArrayList<String> obstaculosNome = new ArrayList<>();
         for(int i = 0; i < this.obstaculos.length; i++){
-            obstaculosNome.add(this.obstaculos[i].split(" ", 2)[0]);
+            obstaculosNome.add(this.obstaculos[i].split(" ", 3)[0]);
         }
         return obstaculosNome;
     }
 
     public ArrayList<Ponto> parseObstaculosPontos(int index){
         ArrayList<Ponto> obstaculosPonto;
-        String pontosStr = this.obstaculos[index].split(" ", 2)[1];
+        String pontosStr = this.obstaculos[index].split(" ", 3)[2];
         obstaculosPonto = strToPontos(pontosStr);
         return obstaculosPonto;
+    }
+
+    public ArrayList<String> parseObstaculoTypes(){
+        ArrayList<String> obstaculoTypes = new ArrayList<>();
+        for(int i = 0; i < this.obstaculos.length; i++){
+            obstaculoTypes.add(this.obstaculos[i].split(" ", 3)[1]);
+        }
+        return obstaculoTypes;
     }
 
 
