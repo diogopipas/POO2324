@@ -78,7 +78,7 @@ public class Arena {
         return comida;
     }
     public Cobra gerarCobra(){
-        return new Cobra(this.dimensaoCobra, new Ponto(new Random().nextDouble(this.dimensaoComida, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoCobra, this.altura-this.dimensaoCobra)));
+        return new Cobra(this.dimensaoCobra, new Ponto(new Random().nextDouble(this.dimensaoComida*2, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoCobra*2, this.altura-this.dimensaoCobra)));
     }
 
     private boolean intersectsSnake(Ponto p) {

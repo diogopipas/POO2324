@@ -121,9 +121,11 @@ public class InterfaceTextual {
         }
         // Imprime informações adicionais
         System.out.print("Dir H: " + this.arena.getCobra().getAngulo());
-        for(int i = 0; i < this.arena.getLargura(); i+=7){
-            System.out.print("\t");
-        }
+    
+        System.out.print("\t");
+        System.out.print("\t");
+        System.out.print("\t");
+        
         System.out.println("Pontos: " + this.arena.getPontuacao());
     }
 
