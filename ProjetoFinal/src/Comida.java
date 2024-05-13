@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.util.Random;
 /* 
 public interface Comida {
@@ -9,6 +10,20 @@ public interface Comida {
 
 public class Comida {
     
+=======
+W/** Classe responsável pela criação da comida
+ *
+ * @author André Santos, Diogo Porto
+ * @version 1.0
+ */
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Comida{
+>>>>>>> parent of fbfdde2 (Push para o G)
     private Ponto posicaoComida;
 
     public Comida(){
