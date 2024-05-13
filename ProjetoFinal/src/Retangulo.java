@@ -54,6 +54,8 @@ public class Retangulo extends Poligono{
         return new Retangulo(p);
     }
 
+    /*
+    @Override
     public boolean containsPonto(Ponto ponto){
         double minX, maxX, minY, maxY;
         minX = getP().get(0).getX();
@@ -62,6 +64,8 @@ public class Retangulo extends Poligono{
         maxY = getP().get(0).getY();
         return (minX <= ponto.getX() && ponto.getX() <= maxX) && (minY <= ponto.getY() && ponto.getY() <= maxY);
     }
+
+     */
 
     /**
      *

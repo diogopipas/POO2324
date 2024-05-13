@@ -78,6 +78,10 @@ public class SegmentoReta extends Reta{
         return false;
     }
 
+    public double getSegmentLength(){
+        return this.a.dist(this.b);
+    }
+
 
     /** getter do ponto a
      *

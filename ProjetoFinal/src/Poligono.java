@@ -268,4 +268,35 @@ public class Poligono{
     public double getTamanhoSegmento(){
         return this.p.get(0).dist(p.get(1));
     }
+
+    public double getMaiorSegmento(){
+        double segmentLength = 0;
+        for(int i = 0; i < this.getSr().size(); i++){
+            if(this.getSr().get(i).getSegmentLength() > segmentLength){
+                segmentLength = this.getSr().get(i).getSegmentLength();
+            }
+        }
+        return segmentLength;
+    }
+
+    public boolean containsPonto(Ponto ponto){
+        double minX = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxY = Double.MIN_VALUE;
+        for (Ponto vertice : getP()) {
+            double x = vertice.getX();
+            double y = vertice.getY();
+            minX = Math.min(minX, x);
+            maxX = Math.max(maxX, x);
+            minY = Math.min(minY, y);
+            maxY = Math.max(maxY, y);
+        }
+
+
+        if(ponto.getX() < minX || ponto.getX() > maxX || ponto.getY() < minY || ponto.getY() > maxY){
+            return false;
+        }
+        return true;
+    }
 }

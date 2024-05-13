@@ -51,17 +51,14 @@ public class InterfaceTextual {
                             printed = true;
                         }
                     }
-                    /*
-                    // Check if the current point contains an object
-                    for (Poligono obstaculo : arena.getObstaculos()) {
-                        if (obstaculo.containsPonto(ponto)) {
+
+                    for (Obstaculo obstaculo : arena.getObstaculos()) {
+                        if (obstaculo.getPoligono().containsPonto(ponto)) {
                             System.out.print("O");
                             printed = true;
                             break;
                         }
                     }
-                   */
-                    // Check if the current point contains food
                 }
                 if (!printed) {
                     System.out.print(".");
