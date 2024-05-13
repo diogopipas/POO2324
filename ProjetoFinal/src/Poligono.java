@@ -1,4 +1,5 @@
-/**
+/** Classe responsável pela criação do poligono
+ *
  * @version 1.2
  * @author André Santos, Diogo Porto
  */
@@ -34,8 +35,6 @@ public class Poligono{
                 this.p.get(0));
         return total;
     }
-
-
     /** Cria um Arraylist de segmentos de reta a partir do Arraylist de pontos p
      *
      */
@@ -85,7 +84,6 @@ public class Poligono{
         }
     }
 
-
     /** Getter para o arraylist de segmentos do poligono
      *
      * @return arraylist de segmentos do poligono
@@ -93,7 +91,6 @@ public class Poligono{
     public ArrayList<SegmentoReta> getSr(){
         return this.sr;
     }
-
 
     /**
      *
@@ -231,7 +228,6 @@ public class Poligono{
         for(Ponto ponto: this.p){
             translatedPoints.add(ponto.translatePoint(dx, dy));
         }
-
         return initPolygon(translatedPoints);
     }
 
@@ -247,6 +243,15 @@ public class Poligono{
         return initPolygon(translatedPoints);
     }
 
+    public boolean pointOnSegment(Ponto p){
+        for(int i = 0; i < this.getSr().size(); i++){
+            if(this.getSr().get(i).onSegment(p)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected Poligono initPolygon(ArrayList<Ponto> p){
         return new Poligono(p);
     }
@@ -259,5 +264,8 @@ public class Poligono{
     public ArrayList<Ponto> getP() {
         return this.p;
     }
-}
 
+    public double getTamanhoSegmento(){
+        return this.p.get(0).dist(p.get(1));
+    }
+}
