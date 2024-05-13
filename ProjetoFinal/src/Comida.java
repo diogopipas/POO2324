@@ -1,13 +1,10 @@
-W/** Classe responsável pela criação da comida
+/** Classe responsável pela criação da comida
  *
  * @author André Santos, Diogo Porto
  * @version 1.0
  */
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Comida{
     private Ponto posicaoComida;
