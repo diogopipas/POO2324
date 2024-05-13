@@ -66,7 +66,7 @@ class Ponto {
      */
     public void check(double coordenada){
         if(coordenada < 0){
-            //System.out.println("Ponto:vi");
+            System.out.println("OOPS!: Cobra colidiu com a borda!");
             System.exit(0);
         }
     }

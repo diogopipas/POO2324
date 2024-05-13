@@ -70,7 +70,7 @@ public class InterfaceTextual {
         for(int i = 0; i < this.arena.getLargura(); i+=7){
             System.out.print("\t");
         }
-        System.out.println("Pontos: 0");
+        System.out.println(this.arena.getPontuacao());
     }
 
     public void printStepContorno() {

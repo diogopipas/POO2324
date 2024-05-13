@@ -1,3 +1,7 @@
+/** Classe responsável pela
+ *
+ */
+
 import java.util.ArrayList;
 
 public class Obstaculo {

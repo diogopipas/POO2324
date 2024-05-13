@@ -91,7 +91,6 @@ public class Simulador {
 
     public void proximoPasso(String input){
         arena.atualizar(stringToEnum(input));
-        //arena.verificarColisoes();
     }
 
     public Direcao stringToEnum(String d){
@@ -100,7 +99,7 @@ public class Simulador {
             case "U" -> Direcao.UP;
             case "R" -> Direcao.RIGHT;
             case "L" -> Direcao.LEFT;
-            default -> null;
+            default -> throw new IllegalArgumentException("Direção invalida: " + d);
         };
     }
 

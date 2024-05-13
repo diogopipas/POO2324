@@ -25,12 +25,15 @@ public class Runner {
             if ("Q".equals(input)) {
                 isRunning = false;
             } else {
-                this.sl.proximoPasso(input);
-                if(this.sl.getModoRasterizacao().equals("completa")){
-                    this.it.printStepCompleta();
-                }
-                else if(this.sl.getModoRasterizacao().equals("contorno")){
-                    this.it.printStepContorno();
+                try {
+                    this.sl.proximoPasso(input);
+                    if (this.sl.getModoRasterizacao().equals("completa")) {
+                        this.it.printStepCompleta();
+                    } else if (this.sl.getModoRasterizacao().equals("contorno")) {
+                        this.it.printStepContorno();
+                    }
+                }catch(IllegalArgumentException e){
+                    System.out.println("Input inválido, tente novamente");
                 }
 
             }

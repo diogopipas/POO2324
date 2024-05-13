@@ -1,8 +1,7 @@
-/** Classe responsável pela inicialização de todos os Objetos presentes na Arena,
- * incluindo a cobra, a comida e os obstáculos
+/** Classe responsável pela inicialização de todos os Objetos presentes na Arena, incluindo a cobra, a comida e os obstáculos
  *
- * @version 1.0
  * @author André Santos, Diogo Porto
+ * @version 1.0
  *
  */
 
@@ -25,6 +24,7 @@ public class Arena {
     private boolean jogoAtivo = true;
     private Quadrado[][] grelha;
     private static final double DIMENSAO_CELULA = 1;
+    private int pontuacao;
 
 
     public Arena(int largura, int altura, int dimensaoComida, String tipoComida, int dimensaoCobra, ArrayList<Poligono> obstaculoPoligonos){
@@ -35,18 +35,48 @@ public class Arena {
         this.dimensaoCobra = dimensaoCobra;
         this.obstaculoPoligonos = obstaculoPoligonos;
         inicializarGrelha();
-        this.obstaculos = gerarObstaculos();
-        this.comida = gerarComida();
         this.cobra = gerarCobra();
+        this.comida = gerarComida();
+        this.obstaculos = gerarObstaculos();
+        this.pontuacao = 0;
+
 
     }
 
     public void atualizar(Direcao d) {
+        cobra.direcionarCobra(d);
 
-        this.cobra.direcionarCobra(d);
-        if (cobra.getCabeca().getP().contains(this.comida.getPosicaoComida())) { // Verifica se a cabeça da cobra está na comida
-            //cobra.come();
-            this.comida = new Comida(this.tipoComida, new Ponto(new Random().nextDouble(this.largura), new Random().nextDouble(this.altura)), this.dimensaoComida); // Gera nova comida
+        if (cobra.getCabeca().containsPonto(comida.getPosicaoComida())) {
+            cobra.addNewSnakePart();
+            gerarComida();
+            this.pontuacao++;
+        }
+
+        verificarColisoes();
+    }
+
+    public void verificarColisoes() {
+        Quadrado cabeca = cobra.getCabeca();
+        // Verificar colisão com as bordas da arena
+        if (cabeca.getP().get(0).getX() < 0 || cabeca.getP().get(0).getX() >= largura ||
+                cabeca.getP().get(0).getY() < 0 || cabeca.getP().get(0).getY() >= altura) {
+            jogoAtivo = false;
+            System.out.println("OOPS!: Cobra colidiu com a borda!");
+            System.exit(0);
+        }
+        // Verificar colisão com o corpo
+        if (cobra.verificarColisaoComCorpo()) {
+            jogoAtivo = false;
+            System.out.println("OOPS!: Cobra colidiu consigo mesma!");
+            System.exit(0);// Encerra a função se uma colisão consigo mesma for detectada
+        }
+
+        // Verificar colisão com o obstaculo
+        for(int i = 0; i < this.obstaculos.size(); i++){
+            if (this.cobra.getCabeca().containsPonto(this.obstaculos.get(i).getPoligono().findCentroide())){
+                System.out.println("OOPS!: Cobra colidiu com um objeto!");
+                System.exit(0);
+            }
         }
 
     }
@@ -60,37 +90,40 @@ public class Arena {
         return obstaculos;
     }
 
-    /*
-    public ArrayList<Obstaculo> gerarObstaculos(){
-        ArrayList<Obstaculo> obstaculos = new ArrayList<>();
-        Ponto p;
-        for(int i = 0; i < this.obstaculoPoligonos.size(); i++){
-            do {
-                p = new Ponto(new Random().nextDouble(this.obstaculoPoligonos.get(i).getMaiorSegmento(), this.largura - this.obstaculoPoligonos.get(i).getMaiorSegmento()),
-                        new Random().nextDouble(this.obstaculoPoligonos.get(i).getMaiorSegmento(), this.altura - this.obstaculoPoligonos.get(i).getMaiorSegmento()));
-            } while (intersectsCobra(p) || intersectsComida(p));
-            Obstaculo obstaculo = new Obstaculo(this.obstaculoPoligonos.get(i), p);
-            obstaculos.add(obstaculo);
-        }
-        return obstaculos;
+
+
+
+    public Comida gerarComida() {
+        Random random = new Random();
+        int x, y;
+        do {
+            x = random.nextInt(dimensaoComida,this.largura - dimensaoComida);  // gera um valor entre 0 (inclusive) e largura (exclusive)
+            y = random.nextInt(dimensaoComida,this.altura - dimensaoComida);   // gera um valor entre 0 (inclusive) e altura (exclusive)
+        } while (intersectsCobra(new Ponto(x, y)));  // Garante que a comida não apareça dentro da cobra
+
+        comida = new Comida(tipoComida, new Ponto(x, y), dimensaoComida);
+        return comida;
     }
 
-     */
 
+
+
+    /*
     public Comida gerarComida(){
         Ponto p;
         do {
             p = new Ponto(new Random().nextDouble(this.dimensaoComida, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoComida, this.altura-this.dimensaoComida));
-        } while (intersectsObstaculo(p));
+        } while (intersectsCobra(p));
 
         return new Comida(this.tipoComida, p, this.dimensaoComida);
     }
 
+     */
+
+
     public Cobra gerarCobra(){
         Ponto p;
-        do {
-            p = new Ponto(new Random().nextDouble(this.dimensaoComida, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoCobra, this.altura-this.dimensaoCobra));
-        }while (intersectsObstaculo(p) || intersectsComida(p));
+        p = new Ponto(new Random().nextDouble(this.dimensaoComida, this.largura - this.dimensaoComida), new Random().nextDouble(this.dimensaoCobra, this.altura-this.dimensaoCobra));
         return new Cobra(this.dimensaoCobra, p);
     }
 
@@ -112,6 +145,16 @@ public class Arena {
             Circulo circulo = new Circulo(this.comida.getDimensao(), this.comida.getPosicaoComida());
             return circulo.containsPonto(p);
         }
+    }
+
+    private boolean intersectsCobra(Ponto p) {
+        // Check if the point intersects with any part of the snake
+        for (Quadrado corpo : cobra.getCobra()) {
+            if (corpo.containsPonto(p)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -176,5 +219,9 @@ public class Arena {
 
     public Quadrado[][] getGrelha() {
         return grelha;
+    }
+
+    public int getPontuacao() {
+        return pontuacao;
     }
 }
