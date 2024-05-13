@@ -268,4 +268,7 @@ public class Poligono{
     public double getTamanhoSegmento(){
         return this.p.get(0).dist(p.get(1));
     }
+    public boolean isCorner(Ponto ponto) {
+        return p.contains(ponto);
+    }
 }

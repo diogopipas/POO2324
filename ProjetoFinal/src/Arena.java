@@ -40,13 +40,12 @@ public class Arena {
 
     public void atualizar(Direcao d) {
         cobra.direcionarCobra(d);
-    
+        
         if (cobra.getCabeca().containsPonto(comida.getPosicaoComida())) { 
             cobra.addNewSnakePart();  
             gerarComida(); 
             pontuacao++;
         }
-    
         verificarColisoes();  
     }
 

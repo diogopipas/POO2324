@@ -56,7 +56,7 @@ public class Simulador {
         arena.atualizar(stringToEnum(input));
         //arena.verificarColisoes();
     }
-
+    
     public Direcao stringToEnum(String d){
         return switch (d) {
             case "D" -> Direcao.DOWN;
