@@ -24,6 +24,7 @@ public class Simulador {
     }
 
     public void readConfigs(){
+        /*
         System.out.println("Introduza a dimensao da arena, ex: 30 30");
         this.dimensaoArena = sc.nextLine().split(" ", 2);
         System.out.println("Introduza a dimensao da cobra, ex: 3");
@@ -40,6 +41,77 @@ public class Simulador {
         this.modoRasterizacao = sc.nextLine();
         System.out.println("Introduza o modo de interface, ex: textual. ex: grafica (NOT AVAILABLE). ");
         this.modoInterface = sc.nextLine();
+         */
+        boolean validInput = false;
+        while(!validInput){
+            try {
+                System.out.println("Introduza a dimensao da arena, ex: 30 30");
+                String[] dimensaoArenaInput = sc.nextLine().split(" ", 2);
+                if (dimensaoArenaInput.length != 2 || !dimensaoArenaInput[0].matches("\\d+") || !dimensaoArenaInput[1].matches("\\d+")) {
+                    throw new IllegalArgumentException("Dimensão da arena inválida. Deve ser no formato 'número número'.");
+                }
+                this.dimensaoArena = dimensaoArenaInput;
+
+                System.out.println("Introduza a dimensao da cobra, ex: 3");
+                String dimensaoCobraInput = sc.nextLine();
+                if (!dimensaoCobraInput.matches("\\d+")) {
+                    throw new IllegalArgumentException("Dimensão da cobra inválida. Deve ser um número.");
+                }
+                this.dimensaoCobra = dimensaoCobraInput;
+
+                System.out.println("Introduza a dimensao da comida, ex: 2");
+                String dimensaoComidaInput = sc.nextLine();
+                if (!dimensaoComidaInput.matches("\\d+")) {
+                    throw new IllegalArgumentException("Dimensão da comida inválida. Deve ser um número.");
+                }
+                this.dimensaoComida = dimensaoComidaInput;
+
+                System.out.println("Introduza o tipo de comida, ex: quadrado. ex: circulo");
+                String tipoComidaInput = sc.nextLine();
+                if (!tipoComidaInput.equals("quadrado") && !tipoComidaInput.equals("circulo")) {
+                    throw new IllegalArgumentException("Tipo de comida inválido. Deve ser 'quadrado' ou 'circulo'.");
+                }
+                this.tipoComida = tipoComidaInput;
+
+                System.out.println("Introduza os obstaculos no seguinte formato, ex: Quadrado Estatico 4 4 6 4 6 6 4 6,Triangulo Estatico 8 8 10 8 9 10. ex: Triangulo Dinamico 8 8 10 8 9 10 ");
+                this.obstaculos = sc.nextLine().split(",");
+                for (String obstaculo : this.obstaculos) {
+                    String[] obstaculoParts = obstaculo.split(" ", 2);
+                    if (obstaculoParts.length != 2 || (!obstaculoParts[0].equals("Quadrado") && !obstaculoParts[0].equals("Triangulo") && !obstaculoParts[0].equals("Retangulo") && !obstaculoParts[0].equals("Poligono")) || !obstaculoParts[1].matches("(Estatico|Dinamico) (\\d+ \\d+ \\d+ \\d+ \\d+ \\d+|\\d+ \\d+ \\d+ \\d+ \\d+ \\d+ \\d+ \\d+)")) {
+                        throw new IllegalArgumentException("Formato de obstáculo inválido. Deve ser 'Tipo Estado Pontos'.");
+                    }
+                }
+
+                System.out.println("Introduza o modo de jogo, ex: manual. ex: automatico (NOT AVAILABLE)");
+                String modoJogoInput = sc.nextLine();
+                if (!modoJogoInput.equals("manual")) {
+                    throw new IllegalArgumentException("Modo de jogo inválido. Apenas 'manual' é suportado atualmente.");
+                }
+                this.modoJogo = modoJogoInput;
+
+                System.out.println("Introduza o modo de rasterização, ex: completa. ex: contorno.");
+                String modoRasterizacaoInput = sc.nextLine();
+                if (!modoRasterizacaoInput.equals("completa") && !modoRasterizacaoInput.equals("contorno")) {
+                    throw new IllegalArgumentException("Modo de rasterização inválido. Deve ser 'completa' ou 'contorno'.");
+                }
+                this.modoRasterizacao = modoRasterizacaoInput;
+
+                System.out.println("Introduza o modo de interface, ex: textual. ex: grafica (NOT AVAILABLE). ");
+                String modoInterfaceInput = sc.nextLine();
+                if (!modoInterfaceInput.equals("textual")) {
+                    throw new IllegalArgumentException("Modo de interface inválido. Apenas 'textual' é suportado atualmente.");
+                }
+                this.modoInterface = modoInterfaceInput;
+
+                validInput = true;
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Por favor, tente novamente.");
+            }
+        }
+
+
     }
 
 

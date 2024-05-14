@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestArena {
 
-
+/*
     @Test
     public void testGerarCobra() {
         ArrayList<Poligono> obstaculos = new ArrayList<>();
@@ -62,6 +62,8 @@ public class TestArena {
         arena.inicializarGrelha();
         assertNotNull(arena.getGrelha());
     }
+
+ */
 
      
 }

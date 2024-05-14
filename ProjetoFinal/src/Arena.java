@@ -22,7 +22,6 @@ public class Arena {
     private ArrayList<Poligono> obstaculoPoligonos;
     private ArrayList<Obstaculo> obstaculos;
     private ArrayList<String> obstaculoTypes;
-    private boolean jogoAtivo = true;
     private Quadrado[][] grelha;
     private static final double DIMENSAO_CELULA = 1;
     private int pontuacao;
@@ -47,19 +46,7 @@ public class Arena {
 
     public void atualizar(Direcao d) {
         cobra.direcionarCobra(d);
-
-        if (cobra.getCabeca().containsPonto(comida.getPosicaoComida())) {
-            cobra.addNewSnakePart();
-            gerarComida();
-            this.pontuacao++;
-        }
-
-        for(int i = 0; i < this.obstaculoTypes.size(); i++){
-            if(this.obstaculoTypes.get(i).equals("Dinamico")){
-                this.obstaculos.set(i, new Obstaculo(this.obstaculos.get(i).getPoligono().rotatePolygon(40), this.obstaculos.get(i).getPoligono().findCentroide()));
-            }
-        }
-
+        rotateObstacle();
         verificarColisoes();
     }
 
@@ -68,17 +55,35 @@ public class Arena {
         // Verificar colisão com as bordas da arena
         if (cabeca.getP().get(0).getX() < 0 || cabeca.getP().get(0).getX() >= largura ||
                 cabeca.getP().get(0).getY() < 0 || cabeca.getP().get(0).getY() >= altura) {
-            jogoAtivo = false;
             System.out.println("OOPS!: Cobra colidiu com a borda!");
             System.exit(0);
         }
         // Verificar colisão com o corpo
         if (cobra.verificarColisaoComCorpo()) {
-            jogoAtivo = false;
             System.out.println("OOPS!: Cobra colidiu consigo mesma!");
             System.exit(0);// Encerra a função se uma colisão consigo mesma for detectada
         }
 
+        //verificar colisão com a comida
+        if (cobra.getCabeca().containsPonto(comida.getPosicaoComida())){
+            cobra.addNewSnakePart();
+            gerarComida();
+            this.pontuacao++;
+        }
+
+
+        // Verificar colisão com o obstaculo
+        for(int i = 0; i < this.obstaculos.size(); i++){
+            for(int j = 0; j < this.obstaculos.get(i).getPoligono().getP().size(); j++){
+                if (this.cobra.getCabeca().containsPonto(this.obstaculos.get(i).getPoligono().getP().get(j))){
+                    System.out.println("OOPS!: Cobra colidiu com um objeto!");
+                    System.exit(0);
+                }
+            }
+        }
+
+
+        /*
         // Verificar colisão com o obstaculo
         for(int i = 0; i < this.obstaculos.size(); i++){
             if (this.cobra.getCabeca().containsPonto(this.obstaculos.get(i).getPoligono().findCentroide())){
@@ -87,6 +92,15 @@ public class Arena {
             }
         }
 
+         */
+    }
+
+    public void rotateObstacle(){
+        for(int i = 0; i < this.obstaculoTypes.size(); i++){
+            if(this.obstaculoTypes.get(i).equals("Dinamico")){
+                this.obstaculos.set(i, new Obstaculo(this.obstaculos.get(i).getPoligono().rotatePolygon(40), this.obstaculos.get(i).getPoligono().findCentroide()));
+            }
+        }
     }
 
     public ArrayList<Obstaculo> gerarObstaculos(){
@@ -108,7 +122,6 @@ public class Arena {
             x = random.nextInt(dimensaoComida,this.largura - dimensaoComida);  // gera um valor entre 0 (inclusive) e largura (exclusive)
             y = random.nextInt(dimensaoComida,this.altura - dimensaoComida);   // gera um valor entre 0 (inclusive) e altura (exclusive)
         } while (intersectsCobra(new Ponto(x, y)));  // Garante que a comida não apareça dentro da cobra
-
         comida = new Comida(tipoComida, new Ponto(x, y), dimensaoComida);
         return comida;
     }
@@ -201,10 +214,6 @@ public class Arena {
         return this.obstaculos;
     }
 
-    public boolean isJogoAtivo() {
-        return jogoAtivo;
-    }
-
     public int getLargura() {
         return largura;
     }
@@ -216,5 +225,9 @@ public class Arena {
 
     public int getPontuacao() {
         return pontuacao;
+    }
+
+    public int incrementPontuacao() {
+        return this.pontuacao++;
     }
 }

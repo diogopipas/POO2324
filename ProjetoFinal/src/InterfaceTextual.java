@@ -29,6 +29,7 @@ public class InterfaceTextual {
                 if (arena.getCobra().getCobra().get(0).containsPonto(ponto)) {
                     System.out.print("H");
                     printed = true;
+
                 } else {
                     for (Quadrado corpo : this.corpoCobra) {
                         if (corpo.containsPonto(ponto)) {
@@ -80,46 +81,60 @@ public class InterfaceTextual {
             for (int j = 1; j < this.arena.getLargura(); j++) {
                 Ponto ponto = new Ponto(j, i);
                 boolean printed = false;
-                if (arena.getCobra().getCabeca().containsPonto(ponto) && !(arena.getCobra().getCabeca().findCentroide().equals(ponto))) {
+
+                // Primeiro verifica a comida para priorizar a impressão da comida
+                if (arena.getComida().getFormaComida() instanceof Circulo) {
+                    Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
+                    if (circulo.isOnBorder(ponto, arena.getComida().getDimensao())) {
+                        System.out.print("F");
+                        printed = true;
+                    }
+                } else {
+                    Quadrado quadrado = new Quadrado(arena.getComida().getVerticesFromCentroid(arena.getComida().getPosicaoComida()));
+                    if (quadrado.isOnBorder(ponto, arena.getComida().getDimensao())) {
+                        System.out.print("F");
+                        printed = true;
+                    }
+                }
+
+                // Em seguida, verifica a cabeça da cobra
+                if (!printed && arena.getCobra().getCobra().get(0).isOnBorder(ponto, arena.getCobra().getDimensao())) {
                     System.out.print("H");
                     printed = true;
-                } else {
-                    for (Quadrado corpo : arena.getCobra().getCobra()) {
-                        if (corpo.containsPonto(ponto) && corpo != arena.getCobra().getCabeca()) {
+                }
+
+                // Finalmente, verifica o resto do corpo da cobra
+                if (!printed) {
+                    for (Quadrado corpo : this.arena.getCobra().getCobra().subList(1, this.arena.getCobra().getCobra().size())) {
+                        if (corpo.isOnBorder(ponto, arena.getCobra().getDimensao())) {
                             System.out.print("T");
                             printed = true;
                             break;
                         }
                     }
+                }
 
-                    if (!printed && arena.getComida().getFormaComida() instanceof Circulo) {
-                        Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
-                        if (circulo.containsPonto(ponto) && !ponto.equals(circulo.getCentro())) {
-                            System.out.print("F");
-                            printed = true;
-                        }
-                    } else if (!printed) {
-                        Quadrado quadrado = new Quadrado(arena.getComida().getVerticesFromCentroid(arena.getComida().getPosicaoComida()));
-                        if (quadrado.containsPonto(ponto)) {
-                            System.out.print("F");
-                            printed = true;
-                        }
-                    }
 
-                    for (Obstaculo obstaculo : arena.getObstaculos()) {
-                        if (obstaculo.getPoligono().containsPonto(ponto)) {
-                            System.out.print("O");
-                            printed = true;
-                            break;
-                        }
+                for (Obstaculo obstaculo : arena.getObstaculos()) {
+                    if (obstaculo.getPoligono().isOnBorder(ponto, obstaculo.getPoligono().getTamanhoSegmento())) {
+                        System.out.print("O");
+                        printed = true;
+                        break;
                     }
                 }
+
+                // Se nenhum dos objetos anteriores estiver neste ponto, imprime um espaço em branco
                 if (!printed) {
                     System.out.print(".");
                 }
             }
             System.out.println(); // Move to the next line after printing each row
         }
+        System.out.print("Dir H: " + this.arena.getCobra().getAngulo());
+        for(int i = 0; i < this.arena.getLargura(); i+=7){
+            System.out.print("\t");
+        }
+        System.out.println("Pontos:" + this.arena.getPontuacao());
     }
 
 

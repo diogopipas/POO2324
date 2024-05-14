@@ -56,6 +56,36 @@ public class Triangulo extends Poligono{
         return (dot1 >= 0 && dot2 >= 0 && dot3 >= 0) || (dot1 <= 0 && dot2 <= 0 && dot3 <= 0);
     }
 
+    public boolean isOnBorderTriangle(Ponto ponto) {
+        // Get the vertices of the triangle
+        Ponto v1 = getP().get(0);
+        Ponto v2 = getP().get(1);
+        Ponto v3 = getP().get(2);
+
+        // Calculate the edges of the triangle
+        double edge1 = v1.dist(v2);
+        double edge2 = v2.dist(v3);
+        double edge3 = v3.dist(v1);
+
+        // Calculate the distances from the point to the vertices
+        double dist1 = ponto.dist(v1);
+        double dist2 = ponto.dist(v2);
+        double dist3 = ponto.dist(v3);
+
+        // Check if the point is on any of the edges
+        boolean onEdge1 = Math.abs(dist1 + dist2 - edge1) < 0.1;
+        boolean onEdge2 = Math.abs(dist2 + dist3 - edge2) < 0.1;
+        boolean onEdge3 = Math.abs(dist3 + dist1 - edge3) < 0.1;
+
+        return onEdge1 || onEdge2 || onEdge3;
+    }
+
+    @Override
+    public boolean isOnBorder(Ponto ponto, double dimensao) {
+        return isOnBorderTriangle(ponto);
+    }
+
+
 
     @Override
     protected Poligono initPolygon(ArrayList<Ponto> p){
