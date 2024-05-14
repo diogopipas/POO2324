@@ -6,7 +6,6 @@
 
 import java.util.ArrayList;
 
-
 public class Comida{
     private Ponto posicaoComida;
     private String tipoComida;
@@ -54,5 +53,4 @@ public class Comida{
     public Object getFormaComida() {
         return formaComida;
     }
-
 }

@@ -13,7 +13,6 @@ public class Circulo {
         this.centro = centro;
     }
 
-
     public boolean containsPonto(Ponto ponto) {
         return ponto.dist(this.centro) <= this.raio;
     }
@@ -45,5 +44,4 @@ public class Circulo {
 
         return onVerticalBorder || onHorizontalBorder;
     }
-
 }

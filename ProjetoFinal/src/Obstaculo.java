@@ -6,6 +6,7 @@
 public class Obstaculo {
     private Poligono poligono;
     private Ponto posicao;
+    
     public Obstaculo(Poligono poligono, Ponto posicao){
         this.poligono = poligono;
         this.posicao = posicao;
@@ -19,5 +20,4 @@ public class Obstaculo {
     public Ponto getPosicao() {
         return posicao;
     }
-
 }

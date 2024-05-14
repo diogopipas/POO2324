@@ -6,7 +6,7 @@
 import java.util.ArrayList;
 
 public class Triangulo extends Poligono{
-
+    
     /**
      * construtor do triangulo
      * @param p array de pontos
@@ -19,7 +19,6 @@ public class Triangulo extends Poligono{
     /**
      * verifica se 3 pontos formam um triangulo
      */
-
     public void verify(){
         int AB = (int) getP().get(0).dist(getP().get(1));
         int BC = (int) getP().get(1).dist(getP().get(2));
@@ -78,8 +77,6 @@ public class Triangulo extends Poligono{
         return isOnBorderTriangle(ponto);
     }
 
-
-
     @Override
     protected Poligono initPolygon(ArrayList<Ponto> p){
         return new Triangulo(p);
@@ -94,5 +91,4 @@ public class Triangulo extends Poligono{
         return "Triangulo: " + getP();
 
     }
-
 }

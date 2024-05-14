@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArenaTest {
-
     @Test
     public void testConstructorAndGetters() {
         Arena arena = new Arena(10, 10, 1, "quadrado", 3, new ArrayList<>(), new ArrayList<>());

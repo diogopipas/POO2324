@@ -26,7 +26,6 @@ public class InterfaceTextual {
                 if (arena.getCobra().getCobra().get(0).containsPonto(ponto)) {
                     System.out.print("H ");
                     printed = true;
-
                 } else {
                     for (Quadrado corpo : this.corpoCobra) {
                         if (corpo.containsPonto(ponto)) {
@@ -35,7 +34,6 @@ public class InterfaceTextual {
                             break;
                         }
                     }
-
                     if (arena.getComida().getFormaComida() instanceof Circulo) {
                         Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
                         if (circulo.containsPonto(ponto)) {
@@ -104,8 +102,6 @@ public class InterfaceTextual {
                         }
                     }
                 }
-
-
                 for (Obstaculo obstaculo : arena.getObstaculos()) {
                     if (obstaculo.getPoligono().isOnBorder(ponto, obstaculo.getPoligono().getTamanhoSegmento())) {
                         System.out.print("O ");
@@ -125,7 +121,5 @@ public class InterfaceTextual {
         }
         System.out.println("Pontos:" + this.arena.getPontuacao());
     }
-
-
 }
 

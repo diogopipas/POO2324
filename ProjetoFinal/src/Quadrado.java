@@ -6,7 +6,6 @@
 import java.util.ArrayList;
 
 public class Quadrado extends Retangulo{
-
     /**
      * Construtor do Quadrado
      * @param p array de pontos
@@ -14,7 +13,6 @@ public class Quadrado extends Retangulo{
     public Quadrado(ArrayList<Ponto> p){
         super(p);
     }
-
 
     @Override
     protected Poligono initPolygon(ArrayList<Ponto> p){

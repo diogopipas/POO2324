@@ -48,7 +48,6 @@ public class SegmentoReta extends Reta{
         return (val > 0)? 1: 2;
     }
 
-
     /** Verifica se o segmento de reta o segmento de reta "this" se interceta com sr
      *
      * @param sr segmento de reta a comparar com o reciever
@@ -61,7 +60,6 @@ public class SegmentoReta extends Reta{
         int o3 = sr.orientation(this.getA());
         int o4 = sr.orientation(this.getB());
 
-
         if (o1 == 0 && onSegment(sr.getA())) return false;
 
         if (o2 == 0 && onSegment(sr.getB())) return false;
@@ -73,15 +71,12 @@ public class SegmentoReta extends Reta{
         if (o1 != o2 && o3 != o4){
             return true;
         }
-
-
         return false;
     }
 
     public double getSegmentLength(){
         return this.a.dist(this.b);
     }
-
 
     /** getter do ponto a
      *
@@ -98,5 +93,4 @@ public class SegmentoReta extends Reta{
     public Ponto getB() {
         return b;
     }
-
 }

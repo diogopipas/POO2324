@@ -5,14 +5,12 @@
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Classe de testes para a classe Ponto.
  */
 public class PontoTest {
-
     private Ponto ponto1, ponto2, ponto3;
 
     @BeforeEach
@@ -76,9 +74,6 @@ public class PontoTest {
 
         Ponto ponto = new Ponto(2, 2);
         Ponto anchorPoint = new Ponto(0, 0);
-
-
-
         Ponto pontoRotacionado = ponto.rotatePoint(anchorPoint, -45);
         assertEquals(3, pontoRotacionado.getX());
         assertEquals(0, pontoRotacionado.getY());
@@ -98,14 +93,10 @@ public class PontoTest {
     @Test
     public void testTranslatePoint() {
         Ponto point = new Ponto(3, 5);
-
         double dx = 2.0;
         double dy = 3.0;
-
         Ponto translatedPoint = point.translatePoint(dx, dy);
-
         Ponto expectedPoint = new Ponto(5, 8);
-
         assertEquals(expectedPoint.getX(), translatedPoint.getX());
         assertEquals(expectedPoint.getY(), translatedPoint.getY());
     }

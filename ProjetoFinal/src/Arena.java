@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Arena {
-
-
     private int largura, altura;
     private Cobra cobra;
     private String tipoComida;
@@ -22,7 +20,6 @@ public class Arena {
     private Quadrado[][] grelha;
     private static final double DIMENSAO_CELULA = 1;
     private int pontuacao;
-
 
     public Arena(int largura, int altura, int dimensaoComida, String tipoComida, int dimensaoCobra, ArrayList<Poligono> obstaculoPoligonos, ArrayList<String> obstaculoTypes){
         this.largura = largura;
@@ -94,7 +91,6 @@ public class Arena {
         }
         return obstaculos;
     }
-
 
     public Comida gerarComida() {
         Random random = new Random();
@@ -204,7 +200,6 @@ public class Arena {
     public int getLargura() {
         return largura;
     }
-
 
     public Quadrado[][] getGrelha() {
         return grelha;

@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ComidaTest {
-
     @Test
     public void testConstructorAndGetters() {
         Comida comida = new Comida( "quadrado", new Ponto(3, 3), 1);

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PoligonoTest {
-
     @Test
     public void testPerimetro() {
         ArrayList<Ponto> pontos = new ArrayList<>();

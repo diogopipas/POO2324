@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SimuladorTest {
-
     @Test
     public void testReadConfigs() {
         Simulador simulador = new Simulador();

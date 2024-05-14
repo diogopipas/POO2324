@@ -15,7 +15,6 @@ public class Simulador {
     private String tipoComida, modoJogo, modoRasterizacao, dimensaoCobra, dimensaoComida;
     private Arena arena;
 
-
     public Simulador(){
         this.sc = new Scanner(System.in);
         readConfigs();
@@ -96,10 +95,7 @@ public class Simulador {
                 System.out.println("Por favor, tente novamente.");
             }
         }
-
-
     }
-
 
     public ArrayList<Poligono> generateObstaculoPoligonos(){
         ArrayList<Poligono> poligonos = new ArrayList<>();
@@ -141,7 +137,6 @@ public class Simulador {
         }
         return obstaculoTypes;
     }
-
 
     public static ArrayList<Ponto> strToPontos(String s){
         ArrayList<Ponto> pontos = new ArrayList<>();

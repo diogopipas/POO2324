@@ -12,13 +12,13 @@ public class Runner {
     private Simulador sl;
     private InterfaceTextual it;
     private CobraZarolha cz;
+
     public Runner(Simulador sl){
         this.sl = sl;
         this.sc = new Scanner(System.in);
         this.it = new InterfaceTextual(sl);
         this.cz = new CobraZarolha(sl);
     }
-
 
     public void run() {
         boolean isRunning = true;
@@ -27,7 +27,6 @@ public class Runner {
         } else if (this.sl.getModoRasterizacao().equals("contorno")) {
             this.it.printStepContorno();
         }
-
         if(this.sl.getModoJogo().equals("manual")){
             while (isRunning) {
                 System.out.println("Introduza a próxima direção da cobra, ex: L (esquerda), R (direita), U (cima), D (baixo), ou Q para sair:");
@@ -46,11 +45,9 @@ public class Runner {
                     }catch(IllegalArgumentException e){
                         System.out.println("Input inválido, tente novamente");
                     }
-
                 }
             }
         }
-
         else{
             System.out.println("ATENÇÃO! A COBRA ZAROLHA COMEÇARÁ O SEU MOVIMENTO");
             while (isRunning) {
@@ -69,7 +66,6 @@ public class Runner {
                         } else if (this.sl.getModoRasterizacao().equals("contorno")) {
                             this.it.printStepContorno();
                         }
-
                     }catch(IllegalArgumentException e){
                         System.out.println("Input inválido, tente novamente");
                     }
@@ -79,8 +75,4 @@ public class Runner {
         }
 
     }
-
-
-
-
 }

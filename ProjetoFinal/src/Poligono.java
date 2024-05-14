@@ -28,6 +28,7 @@ public class Poligono{
      */
     public int perimetro(){
         int total = 0;
+        
         for(int i = 1; i < this.p.size(); i++){
             total += this.p.get(i-1).dist(this.p.get(i));
         }
@@ -40,6 +41,7 @@ public class Poligono{
      */
     public void createSegmentList(){
         ArrayList<SegmentoReta> arr = new ArrayList<>();
+
         for(int i = 1; i < this.p.size(); i++){
             arr.add(new SegmentoReta(new Ponto(p.get(i-1).getX(), p.get(i-1).getY()),
                     new Ponto(p.get(i).getX(), p.get(i).getY())));
@@ -99,7 +101,6 @@ public class Poligono{
      * @return true se os retangulos envolventes se intercetam, false se não
      */
     public static boolean rectangleIntersects(ArrayList<Ponto> p1, ArrayList<Ponto> p2) {
-
         double minX1 = Integer.MAX_VALUE, minY1 = Integer.MAX_VALUE;
         double maxX1 = Integer.MIN_VALUE, maxY1 = Integer.MIN_VALUE;
 
@@ -123,10 +124,8 @@ public class Poligono{
             maxX2 = Math.max(maxX2, x);
             maxY2 = Math.max(maxY2, y);
         }
-
         Rectangle retangulo1 = new Rectangle((int)minX1, (int)minY1, (int)(maxX1 - minX1), (int)(maxY1 - minY1));
         Rectangle retangulo2 = new Rectangle((int)minX2, (int)minY2, (int)(maxX2 - minX2), (int)(maxY2 - minY2));
-
         return retangulo1.intersects(retangulo2);
     }
 
@@ -177,10 +176,10 @@ public class Poligono{
             return new Poligono(this.p);
         }
         ArrayList<Ponto> rotatedPoints = new ArrayList<>();
+
         for (Ponto ponto : this.p) {
             rotatedPoints.add(ponto.rotatePoint(anchorPoint, angleDeg));
         }
-
         return initPolygon(rotatedPoints);
     }
 
@@ -190,6 +189,7 @@ public class Poligono{
      */
     public Ponto findCentroide(){
         double xsum = 0, ysum = 0, centroideX, centroideY;
+
         for(int i = 0; i < this.p.size(); i++){
             xsum += this.p.get(i).getX();
             ysum += this.p.get(i).getY();
@@ -210,6 +210,7 @@ public class Poligono{
         }
         ArrayList<Ponto> rotatedPoints = new ArrayList<>();
         Ponto centroide = findCentroide();
+
         for (Ponto ponto : this.p) {
             rotatedPoints.add(ponto.rotatePoint(centroide, angleDeg));
         }
@@ -255,19 +256,15 @@ public class Poligono{
     public boolean isOnBorder(Ponto ponto, double dimensao) {
         double x = ponto.getX();
         double y = ponto.getY();
-
         Ponto centro = this.findCentroide();
         double halfDim = dimensao / 2;
         double left = centro.getX() - halfDim;
         double right = centro.getX() + halfDim;
         double top = centro.getY() - halfDim;
         double bottom = centro.getY() + halfDim;
-
         double margin = 0.5;
-
         boolean onVerticalBorder = ((Math.abs(x - left) <= margin || Math.abs(x - right) <= margin) && y >= top - margin && y <= bottom + margin);
         boolean onHorizontalBorder = ((Math.abs(y - top) <= margin || Math.abs(y - bottom) <= margin) && x >= left - margin && x <= right + margin);
-
         return onVerticalBorder || onHorizontalBorder;
     }
 
@@ -292,6 +289,7 @@ public class Poligono{
 
     public double getMaiorSegmento(){
         double segmentLength = 0;
+
         for(int i = 0; i < this.getSr().size(); i++){
             if(this.getSr().get(i).getSegmentLength() > segmentLength){
                 segmentLength = this.getSr().get(i).getSegmentLength();
@@ -305,6 +303,7 @@ public class Poligono{
         double maxX = Double.MIN_VALUE;
         double minY = Double.MAX_VALUE;
         double maxY = Double.MIN_VALUE;
+
         for (Ponto vertice : getP()) {
             double x = vertice.getX();
             double y = vertice.getY();
@@ -313,8 +312,6 @@ public class Poligono{
             minY = Math.min(minY, y);
             maxY = Math.max(maxY, y);
         }
-
-
         if(ponto.getX() < minX || ponto.getX() > maxX || ponto.getY() < minY || ponto.getY() > maxY){
             return false;
         }

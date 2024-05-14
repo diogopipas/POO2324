@@ -3,9 +3,7 @@
  */
 
 public class Reta  {
-
     private Ponto a, b;
-
 
     /** Construtor da reta
      *
@@ -36,7 +34,6 @@ public class Reta  {
         return ABx * ACy - ABy * ACx;
     }
 
-
     /** verifica se os dois pontos da reta são colineares com o ponto c
      *
      * @param c ponto a ser comparado
@@ -61,5 +58,4 @@ public class Reta  {
     public Ponto getB() {
         return b;
     }
-
 }

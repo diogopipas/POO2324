@@ -5,13 +5,9 @@
  */
 import java.util.ArrayList;
 
-
 public class Cobra {
-
     private ArrayList<Quadrado> cobra; // Lista de cobra que compõem a cobra
-
     private double dimensao; // Dimensão da aresta dos quadrados da cobra
-
     private Direcao ultimaDirecao;
 
     public Cobra(double dimensao, Ponto pontoIncial){
@@ -67,7 +63,6 @@ public class Cobra {
         }
     }
 
-
     public void addNewSnakePart() {
         Quadrado ultimoSegmento = cobra.get(cobra.size() - 1);
         Ponto ultimaPosicao = ultimoSegmento.findCentroide();
@@ -118,7 +113,6 @@ public class Cobra {
                 (ultimaDirecao == Direcao.LEFT && novaDirecao == Direcao.RIGHT) ||
                 (ultimaDirecao == Direcao.RIGHT && novaDirecao == Direcao.LEFT));
     }
-
 
     public Quadrado getCabeca() {
         return this.cobra.get(0);
