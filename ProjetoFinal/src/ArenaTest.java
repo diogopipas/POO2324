@@ -18,7 +18,6 @@ public class ArenaTest {
 
     @Test
     public void testAtualizar() {
-        // Test updating the arena
         Arena arena = new Arena(10, 10, 1, "quadrado", 3, new ArrayList<>(), new ArrayList<>());
         assertDoesNotThrow(() -> arena.atualizar(Direcao.DOWN));
         assertDoesNotThrow(() -> arena.atualizar(Direcao.UP));

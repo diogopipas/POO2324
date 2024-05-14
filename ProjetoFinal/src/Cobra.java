@@ -4,7 +4,7 @@
  * @version 1.0
  */
 import java.util.ArrayList;
-//import java.util.Random;
+
 
 public class Cobra {
 
@@ -25,10 +25,10 @@ public class Cobra {
     public Quadrado getQuadradoFromCentroid(Ponto centroide){
         ArrayList<Ponto> pontos = new ArrayList<>();
         double metadeAresta = this.dimensao/2;
-        Ponto p1 = new Ponto(centroide.getX()-(metadeAresta), centroide.getY()+metadeAresta); // supperior esqueerdo
-        Ponto p2 = new Ponto(centroide.getX()+(metadeAresta), centroide.getY()+metadeAresta); // supperior direito
-        Ponto p3 = new Ponto(centroide.getX()+(metadeAresta), centroide.getY()-metadeAresta); // inferior direito
-        Ponto p4 = new Ponto(centroide.getX()-(metadeAresta), centroide.getY()-metadeAresta); // inferior esqueerdo~
+        Ponto p1 = new Ponto(centroide.getX()-(metadeAresta), centroide.getY()+metadeAresta); // superior esquerdo
+        Ponto p2 = new Ponto(centroide.getX()+(metadeAresta), centroide.getY()+metadeAresta); // superior direito
+        Ponto p3 = new Ponto(centroide.getX()+(metadeAresta), centroide.getY()-metadeAresta);
+        Ponto p4 = new Ponto(centroide.getX()-(metadeAresta), centroide.getY()-metadeAresta); 
         pontos.add(p1);
         pontos.add(p2);
         pontos.add(p3);

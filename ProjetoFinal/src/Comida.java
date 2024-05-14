@@ -28,10 +28,10 @@ public class Comida{
 
     public ArrayList<Ponto> getVerticesFromCentroid(Ponto centroide){
         ArrayList<Ponto> pontos = new ArrayList<>();
-        Ponto p1 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior esqueerdo
-        Ponto p2 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()+this.dimensao/2); // supperior direito
+        Ponto p1 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()+this.dimensao/2); // superior esquerdo
+        Ponto p2 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()+this.dimensao/2); // superior direito
         Ponto p3 = new Ponto(centroide.getX()+(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior direito
-        Ponto p4 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior esqueerdo~
+        Ponto p4 = new Ponto(centroide.getX()-(this.dimensao/2), centroide.getY()-this.dimensao/2); // inferior esquerdo
         pontos.add(p1);
         pontos.add(p2);
         pontos.add(p3);

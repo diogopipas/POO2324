@@ -5,14 +5,12 @@ public class SimuladorTest {
 
     @Test
     public void testReadConfigs() {
-        // Test reading configurations
         Simulador simulador = new Simulador();
         assertDoesNotThrow(simulador::readConfigs);
     }
 
     @Test
     public void testGenerateObstaculoPoligonos() {
-        // Test generating obstacle polygons
         Simulador simulador = new Simulador();
         assertDoesNotThrow(simulador::generateObstaculoPoligonos);
     }

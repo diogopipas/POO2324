@@ -69,7 +69,6 @@ public class Arena {
             this.pontuacao++;
         }
 
-
         // Verificar colisão com o obstaculo
         for(int i = 0; i < this.obstaculos.size(); i++){
             for(int j = 0; j < this.obstaculos.get(i).getPoligono().getP().size(); j++){
@@ -146,7 +145,6 @@ public class Arena {
     }
 
     public boolean intersectsCobra(Ponto p) {
-        // Check if the point intersects with any part of the snake
         for (Quadrado corpo : cobra.getCobra()) {
             if (corpo.containsPonto(p)) {
                 return true;
@@ -167,10 +165,10 @@ public class Arena {
 
     public ArrayList<Ponto> getVerticesFromCentroid(Ponto centroide){
         ArrayList<Ponto> pontos = new ArrayList<>();
-        Ponto p1 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()+DIMENSAO_CELULA/2); // supperior esqueerdo
-        Ponto p2 = new Ponto(centroide.getX()+DIMENSAO_CELULA/2, centroide.getY()+DIMENSAO_CELULA/2); // supperior direito
-        Ponto p3 = new Ponto(centroide.getX()+DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); // inferior direito
-        Ponto p4 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); // inferior esquerdo
+        Ponto p1 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()+DIMENSAO_CELULA/2); // supperior esquerdo
+        Ponto p2 = new Ponto(centroide.getX()+DIMENSAO_CELULA/2, centroide.getY()+DIMENSAO_CELULA/2); // superior direito
+        Ponto p3 = new Ponto(centroide.getX()+DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); 
+        Ponto p4 = new Ponto(centroide.getX()-DIMENSAO_CELULA/2, centroide.getY()-DIMENSAO_CELULA/2); 
         pontos.add(p1);
         pontos.add(p2);
         pontos.add(p3);

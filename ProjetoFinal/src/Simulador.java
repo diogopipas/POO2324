@@ -61,7 +61,6 @@ public class Simulador {
                     if (obstaculoParts.length != 2 || (!obstaculoParts[0].equals("Quadrado") && !obstaculoParts[0].equals("Triangulo") && !obstaculoParts[0].equals("Retangulo") && !obstaculoParts[0].equals("Poligono")) || !obstaculoParts[1].matches("(Estatico|Dinamico) (\\d+(\\s+\\d+){2,})")) {
                         throw new IllegalArgumentException("Formato de obstáculo inválido. Deve ser 'Tipo Estado Pontos'.");
                     }
-                    // Additional check to ensure correct number of points for Quadrilaterals and Triangles
                     if ((obstaculoParts[0].equals("Quadrado") || obstaculoParts[0].equals("Retangulo")) && obstaculoParts[1].split(" ", 2)[1].split(" ").length != 8) {
                         throw new IllegalArgumentException("Quadriláteros devem ter 4 pares de coordenadas.");
                     }

@@ -39,7 +39,6 @@ public class Triangulo extends Poligono{
         Ponto p2 = getP().get(1);
         Ponto p3 = getP().get(2);
 
-        // Calculate vectors from the triangle vertices to the point
         double v1x = p.getX() - p1.getX();
         double v1y = p.getY() - p1.getY();
         double v2x = p.getX() - p2.getX();
@@ -47,32 +46,26 @@ public class Triangulo extends Poligono{
         double v3x = p.getX() - p3.getX();
         double v3y = p.getY() - p3.getY();
 
-        // Calculate dot products
         double dot1 = (v1x * (p2.getY() - p1.getY())) - (v1y * (p2.getX() - p1.getX()));
         double dot2 = (v2x * (p3.getY() - p2.getY())) - (v2y * (p3.getX() - p2.getX()));
         double dot3 = (v3x * (p1.getY() - p3.getY())) - (v3y * (p1.getX() - p3.getX()));
 
-        // Check if point is on the same side of all triangle edges
         return (dot1 >= 0 && dot2 >= 0 && dot3 >= 0) || (dot1 <= 0 && dot2 <= 0 && dot3 <= 0);
     }
 
     public boolean isOnBorderTriangle(Ponto ponto) {
-        // Get the vertices of the triangle
         Ponto v1 = getP().get(0);
         Ponto v2 = getP().get(1);
         Ponto v3 = getP().get(2);
 
-        // Calculate the edges of the triangle
         double edge1 = v1.dist(v2);
         double edge2 = v2.dist(v3);
         double edge3 = v3.dist(v1);
 
-        // Calculate the distances from the point to the vertices
         double dist1 = ponto.dist(v1);
         double dist2 = ponto.dist(v2);
         double dist3 = ponto.dist(v3);
 
-        // Check if the point is on any of the edges
         boolean onEdge1 = Math.abs(dist1 + dist2 - edge1) < 0.1;
         boolean onEdge2 = Math.abs(dist2 + dist3 - edge2) < 0.1;
         boolean onEdge3 = Math.abs(dist3 + dist1 - edge3) < 0.1;
