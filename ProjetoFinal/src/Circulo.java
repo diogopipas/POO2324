@@ -4,8 +4,6 @@
  * @version 1.0
  */
 
-import java.util.ArrayList;
-
 public class Circulo {
     private double raio;
     private Ponto centro;

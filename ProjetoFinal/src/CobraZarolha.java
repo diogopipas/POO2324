@@ -6,11 +6,8 @@
 import java.util.Random;
 
 public class CobraZarolha {
-    private Simulador sl;
     public CobraZarolha(Simulador sl){
-        this.sl = sl;
     }
-
     public String nextDirection(){
         Random random = new Random();
         int x = random.nextInt(0, 3);

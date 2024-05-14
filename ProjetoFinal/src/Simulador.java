@@ -5,15 +5,14 @@
  */
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.Scanner;
 
 public class Simulador {
     Scanner sc;
     private String[] dimensaoArena, obstaculos;
-    private String tipoComida, modoJogo, modoRasterizacao, modoInterface, dimensaoCobra, dimensaoComida;
+    private String tipoComida, modoJogo, modoRasterizacao, dimensaoCobra, dimensaoComida;
     private Arena arena;
 
 
@@ -91,8 +90,6 @@ public class Simulador {
                 if (!modoInterfaceInput.equals("textual")) {
                     throw new IllegalArgumentException("Modo de interface inválido. Apenas 'textual' é suportado atualmente.");
                 }
-                this.modoInterface = modoInterfaceInput;
-
                 validInput = true;
 
             } catch (IllegalArgumentException e) {

@@ -3,8 +3,6 @@
  * @version 1.0
  */
 
-import java.util.ArrayList;
-
 public class Obstaculo {
     private Poligono poligono;
     private Ponto posicao;

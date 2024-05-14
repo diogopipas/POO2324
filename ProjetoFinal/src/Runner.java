@@ -5,7 +5,6 @@
  * @version 1.0
  */
 
-import java.io.EOFException;
 import java.util.Scanner;
 
 public class Runner {

@@ -8,14 +8,12 @@
 import java.util.ArrayList;
 
 public class InterfaceTextual {
-    private Simulador sl;
     private Arena arena;
     private ArrayList<Quadrado> partesCobraCopia; //Esta copia é feita para poder remover a cabeça
     // da cobra sem influenciar a verdadeira lista
     private ArrayList<Quadrado> corpoCobra;
 
     public InterfaceTextual(Simulador sl) {
-        this.sl = sl;
         this.arena = sl.getArena();
         this.partesCobraCopia = arena.getCobra().getCobra();
         this.corpoCobra = this.partesCobraCopia;
@@ -27,13 +25,13 @@ public class InterfaceTextual {
                 Ponto ponto = new Ponto(j, i);
                 boolean printed = false;
                 if (arena.getCobra().getCobra().get(0).containsPonto(ponto)) {
-                    System.out.print("H");
+                    System.out.print("H ");
                     printed = true;
 
                 } else {
                     for (Quadrado corpo : this.corpoCobra) {
                         if (corpo.containsPonto(ponto)) {
-                            System.out.print("T");
+                            System.out.print("T ");
                             printed = true;
                             break;
                         }
@@ -42,13 +40,13 @@ public class InterfaceTextual {
                     if (arena.getComida().getFormaComida() instanceof Circulo) {
                         Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
                         if (circulo.containsPonto(ponto)) {
-                            System.out.print("F");
+                            System.out.print("F ");
                             printed = true;
                         }
                     } else {
                         Quadrado quadrado = new Quadrado(arena.getComida().getVerticesFromCentroid(arena.getComida().getPosicaoComida()));
                         if (quadrado.containsPonto(ponto)) {
-                            System.out.print("F");
+                            System.out.print("F ");
                             printed = true;
                         }
                     }
@@ -56,15 +54,15 @@ public class InterfaceTextual {
 
                     for (Obstaculo obstaculo : arena.getObstaculos()) {
                         if (obstaculo.getPoligono().containsPonto(ponto)) {
-                            System.out.print("O");
+                            System.out.print("O ");
                             printed = true;
                             break;
                         }
                     }
 
                 }
-                if (!printed) {
-                    System.out.print(".");
+                if (!printed) { 
+                    System.out.print(". ");
                 }
             }
             System.out.println(); // Move to the next line after printing each row
@@ -86,20 +84,20 @@ public class InterfaceTextual {
                 if (arena.getComida().getFormaComida() instanceof Circulo) {
                     Circulo circulo = new Circulo(arena.getComida().getDimensao(), arena.getComida().getPosicaoComida());
                     if (circulo.isOnBorder(ponto, arena.getComida().getDimensao())) {
-                        System.out.print("F");
+                        System.out.print("F ");
                         printed = true;
                     }
                 } else {
                     Quadrado quadrado = new Quadrado(arena.getComida().getVerticesFromCentroid(arena.getComida().getPosicaoComida()));
                     if (quadrado.isOnBorder(ponto, arena.getComida().getDimensao())) {
-                        System.out.print("F");
+                        System.out.print("F ");
                         printed = true;
                     }
                 }
 
                 // Em seguida, verifica a cabeça da cobra
                 if (!printed && arena.getCobra().getCobra().get(0).isOnBorder(ponto, arena.getCobra().getDimensao())) {
-                    System.out.print("H");
+                    System.out.print("H ");
                     printed = true;
                 }
 
@@ -107,7 +105,7 @@ public class InterfaceTextual {
                 if (!printed) {
                     for (Quadrado corpo : this.arena.getCobra().getCobra().subList(1, this.arena.getCobra().getCobra().size())) {
                         if (corpo.isOnBorder(ponto, arena.getCobra().getDimensao())) {
-                            System.out.print("T");
+                            System.out.print("T ");
                             printed = true;
                             break;
                         }
@@ -117,7 +115,7 @@ public class InterfaceTextual {
 
                 for (Obstaculo obstaculo : arena.getObstaculos()) {
                     if (obstaculo.getPoligono().isOnBorder(ponto, obstaculo.getPoligono().getTamanhoSegmento())) {
-                        System.out.print("O");
+                        System.out.print("O ");
                         printed = true;
                         break;
                     }
@@ -125,7 +123,7 @@ public class InterfaceTextual {
 
                 // Se nenhum dos objetos anteriores estiver neste ponto, imprime um espaço em branco
                 if (!printed) {
-                    System.out.print(".");
+                    System.out.print(". ");
                 }
             }
             System.out.println(); // Move to the next line after printing each row
