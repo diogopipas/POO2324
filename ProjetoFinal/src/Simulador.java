@@ -24,24 +24,6 @@ public class Simulador {
     }
 
     public void readConfigs(){
-        /*
-        System.out.println("Introduza a dimensao da arena, ex: 30 30");
-        this.dimensaoArena = sc.nextLine().split(" ", 2);
-        System.out.println("Introduza a dimensao da cobra, ex: 3");
-        this.dimensaoCobra = sc.nextLine();
-        System.out.println("Introduza a dimensao da comida, ex: 2");
-        this.dimensaoComida = sc.nextLine();
-        System.out.println("Introduza o tipo de comida, ex: quadrado. ex: circulo");
-        this.tipoComida = sc.nextLine();
-        System.out.println("Introduza os obstaculos no seguinte formato, ex: Quadrado Estatico 4 4 6 4 6 6 4 6,Triangulo Estatico 8 8 10 8 9 10. ex: Triangulo Dinamico 8 8 10 8 9 10 ");
-        this.obstaculos = sc.nextLine().split(",");
-        System.out.println("Introduza o modo de jogo, ex: manual. ex: automatico (NOT AVAILABLE)");
-        this.modoJogo = sc.nextLine();
-        System.out.println("Introduza o modo de rasterização, ex: completa. ex: contorno.");
-        this.modoRasterizacao = sc.nextLine();
-        System.out.println("Introduza o modo de interface, ex: textual. ex: grafica (NOT AVAILABLE). ");
-        this.modoInterface = sc.nextLine();
-         */
         boolean validInput = false;
         while(!validInput){
             try {
@@ -77,15 +59,23 @@ public class Simulador {
                 this.obstaculos = sc.nextLine().split(",");
                 for (String obstaculo : this.obstaculos) {
                     String[] obstaculoParts = obstaculo.split(" ", 2);
-                    if (obstaculoParts.length != 2 || (!obstaculoParts[0].equals("Quadrado") && !obstaculoParts[0].equals("Triangulo") && !obstaculoParts[0].equals("Retangulo") && !obstaculoParts[0].equals("Poligono")) || !obstaculoParts[1].matches("(Estatico|Dinamico) (\\d+ \\d+ \\d+ \\d+ \\d+ \\d+|\\d+ \\d+ \\d+ \\d+ \\d+ \\d+ \\d+ \\d+)")) {
+                    if (obstaculoParts.length != 2 || (!obstaculoParts[0].equals("Quadrado") && !obstaculoParts[0].equals("Triangulo") && !obstaculoParts[0].equals("Retangulo") && !obstaculoParts[0].equals("Poligono")) || !obstaculoParts[1].matches("(Estatico|Dinamico) (\\d+(\\s+\\d+){2,})")) {
                         throw new IllegalArgumentException("Formato de obstáculo inválido. Deve ser 'Tipo Estado Pontos'.");
+                    }
+                    // Additional check to ensure correct number of points for Quadrilaterals and Triangles
+                    if ((obstaculoParts[0].equals("Quadrado") || obstaculoParts[0].equals("Retangulo")) && obstaculoParts[1].split(" ", 2)[1].split(" ").length != 8) {
+                        throw new IllegalArgumentException("Quadriláteros devem ter 4 pares de coordenadas.");
+                    }
+                    if ((obstaculoParts[0].equals("Triangulo")) && obstaculoParts[1].split(" ", 2)[1].split(" ").length != 6) {
+
+                        throw new IllegalArgumentException("Triângulos devem ter 3 pares de coordenadas.");
                     }
                 }
 
-                System.out.println("Introduza o modo de jogo, ex: manual. ex: automatico (NOT AVAILABLE)");
+                System.out.println("Introduza o modo de jogo, ex: manual. ex: automatico (AKA: MODO COBRA ZAROLHA) (RECOMENDADO CRIAR UMA ARENA MAIOR)");
                 String modoJogoInput = sc.nextLine();
-                if (!modoJogoInput.equals("manual")) {
-                    throw new IllegalArgumentException("Modo de jogo inválido. Apenas 'manual' é suportado atualmente.");
+                if (!modoJogoInput.equals("manual") && !modoJogoInput.equals("automatico")) {
+                    throw new IllegalArgumentException("Modo de jogo inválido.");
                 }
                 this.modoJogo = modoJogoInput;
 
@@ -190,4 +180,7 @@ public class Simulador {
         return this.modoRasterizacao;
     }
 
+    public String getModoJogo() {
+        return this.modoJogo;
+    }
 }
