@@ -1,7 +1,10 @@
-import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
-public class InterfaceGrafica {
+public class InterfaceGrafica extends JComponent{
     private Simulador sl;
     private Painel painel;
     private Ponto topLeftCorner;
@@ -10,13 +13,11 @@ public class InterfaceGrafica {
         this.sl = sl;
     }
 
-    /*
+
     public void addKeyArrowListener(int keyCode, String Name, Action action) {
         this.getInputMap(2).put(KeyStroke.getKeyStroke(keyCode, 0), Name);
         this.getActionMap().put(Name, action);
     }
-
-     */
 
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
