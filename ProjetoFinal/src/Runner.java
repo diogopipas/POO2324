@@ -12,16 +12,26 @@ public class Runner {
     private Simulador sl;
     private InterfaceTextual it;
     private CobraZarolha cz;
-    private GameView gv;
+    private InterfaceGrafica ig;
 
     public Runner(Simulador sl){
         this.sl = sl;
         this.sc = new Scanner(System.in);
         this.it = new InterfaceTextual(sl);
         this.cz = new CobraZarolha(sl);
+        this.ig = new InterfaceGrafica(sl);
     }
 
-    public void run() {
+
+    public void run(){
+        if(this.sl.getModoInterface().equals("textual")){
+            runTextual();
+        }
+        else{
+            runGrafica();
+        }
+    }
+    public void runTextual() {
         boolean isRunning = true;
         if (this.sl.getModoRasterizacao().equals("completa")) {
             this.it.printStepCompleta();
@@ -74,6 +84,10 @@ public class Runner {
                 }
             }
         }
+    }
+
+    public void runGrafica(){
 
     }
+
 }

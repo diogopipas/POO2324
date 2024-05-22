@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Simulador {
     Scanner sc;
     private String[] dimensaoArena, obstaculos;
-    private String tipoComida, modoJogo, modoRasterizacao, dimensaoCobra, dimensaoComida;
+    private String tipoComida, modoJogo, modoRasterizacao, dimensaoCobra, dimensaoComida, modoInterface;
     private Arena arena;
 
     public Simulador(){
@@ -83,11 +83,12 @@ public class Simulador {
                 }
                 this.modoRasterizacao = modoRasterizacaoInput;
 
-                System.out.println("Introduza o modo de interface, ex: textual. ex: grafica (NOT AVAILABLE). ");
+                System.out.println("Introduza o modo de interface, ex: textual. ex: grafica. ");
                 String modoInterfaceInput = sc.nextLine();
-                if (!modoInterfaceInput.equals("textual")) {
-                    throw new IllegalArgumentException("Modo de interface inválido. Apenas 'textual' é suportado atualmente.");
+                if (!modoInterfaceInput.equals("textual") && !modoInterfaceInput.equals("grafica")) {
+                    throw new IllegalArgumentException("Modo de interface inválido. Deve ser 'textual' ou 'grafica'.");
                 }
+                this.modoInterface = modoInterfaceInput;
                 validInput = true;
 
             } catch (IllegalArgumentException e) {
@@ -174,4 +175,8 @@ public class Simulador {
     public String getModoJogo() {
         return this.modoJogo;
     }
+
+    public String getTipoComida(){return this.tipoComida;}
+
+    public String getModoInterface() {return modoInterface;}
 }
