@@ -2,10 +2,12 @@ import java.awt.*;
 
 public class InterfaceGrafica {
     private Simulador sl;
+    private Painel painel;
     private Ponto topLeftCorner;
     private double dimensao;
-    public InterfaceGrafica(Simulador sl) {
+    public InterfaceGrafica(Simulador sl, Painel painel) {
         this.sl = sl;
+        this.painel = painel;
     }
 
     protected void paintComponent(Graphics g) {
@@ -48,7 +50,7 @@ public class InterfaceGrafica {
                 }
 
                 //g2d.draw(this.snakeGame[i][j].getRect());
-                g2d.fill(new Rectangle((int)p.getX(), (int)p.getY(), (int)this.dimensao, (int)this.dimensao));
+                g2d.fill(new Rectangle((int)this.topLeftCorner.getX(), (int)this.topLeftCorner.getY(), (int)this.dimensao, (int)this.dimensao));
             }
         }
         //g2d.drawRect(20, 20, 400, 400);
