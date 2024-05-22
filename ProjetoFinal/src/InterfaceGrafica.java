@@ -5,9 +5,8 @@ public class InterfaceGrafica {
     private Painel painel;
     private Ponto topLeftCorner;
     private double dimensao;
-    public InterfaceGrafica(Simulador sl, Painel painel) {
+    public InterfaceGrafica(Simulador sl) {
         this.sl = sl;
-        this.painel = painel;
     }
 
     protected void paintComponent(Graphics g) {

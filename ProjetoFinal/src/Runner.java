@@ -14,13 +14,14 @@ public class Runner {
     private CobraZarolha cz;
     private InterfaceGrafica ig;
     private Painel painel;
+    private GameFrame frame;
 
     public Runner(Simulador sl){
         this.sl = sl;
         this.sc = new Scanner(System.in);
         this.it = new InterfaceTextual(sl);
         this.cz = new CobraZarolha(sl);
-        this.ig = new InterfaceGrafica(sl, this.painel);
+        this.ig = new InterfaceGrafica(sl);
     }
 
 
@@ -88,7 +89,8 @@ public class Runner {
     }
 
     public void runGrafica(){
-
+        this.frame = new GameFrame();
+        this.painel = new Painel();
     }
 
 }
