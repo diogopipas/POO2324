@@ -12,6 +12,7 @@ public class Runner {
     private Simulador sl;
     private InterfaceTextual it;
     private CobraZarolha cz;
+    private GameView gv;
 
     public Runner(Simulador sl){
         this.sl = sl;
