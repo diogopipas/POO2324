@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class InterfaceGrafica {
@@ -8,6 +9,14 @@ public class InterfaceGrafica {
     public InterfaceGrafica(Simulador sl) {
         this.sl = sl;
     }
+
+    /*
+    public void addKeyArrowListener(int keyCode, String Name, Action action) {
+        this.getInputMap(2).put(KeyStroke.getKeyStroke(keyCode, 0), Name);
+        this.getActionMap().put(Name, action);
+    }
+
+     */
 
     protected void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;

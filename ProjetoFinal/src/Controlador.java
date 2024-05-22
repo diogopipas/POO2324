@@ -1,30 +1,23 @@
-import java.awt.Component;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Random;
 import javax.swing.AbstractAction;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-class Controller {
+class Controlador {
     /*
-    private final JogoModel model;
-    private final JogoView view;
-    private final PainelSul spanel;
-    private final PainelNorte npanel;
+    private Simulador sl;
+    private final InterfaceGrafica view;
+    private Painel painel;
     private Timer gameTimer = null;
 
-    public Controller(JogoModel model, JogoView view, PainelNorte npanel, PainelSul spanel) {
-        this.model = model;
+    public Controlador(Simulador sl, InterfaceGrafica view, Painel painel) {
+        this.sl = sl;
         this.view = view;
-        this.npanel = npanel;
-        this.spanel = spanel;
+        this.painel = painel;
         this.updateGameViewDisplay();
         this.initialpanelViewListeners();
     }
+
 
     private void updateGameViewDisplay() {
         int startx = 20;
@@ -58,9 +51,9 @@ class Controller {
     }
 
     private void initialpanelViewListeners() {
-        this.npanel.addPlayButtonListener(new ActionListener() {
+        this.painel.addPlayButtonListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-                JogoController.this.model.setPlayingMode(!JogoController.this.model.getPlayingMode());
+                Controlador.this.sl.setPlayingMode(!Controlador.this.model.getPlayingMode());
                 JogoController.this.stopTime();
                 if (JogoController.this.model.getPlayingMode()) {
                     JogoController.this.model.setArrowKey(JogoController.this.model.randomizeArrow());
