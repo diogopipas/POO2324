@@ -8,7 +8,7 @@ public class InterfaceGrafica extends JPanel{
     private double dimensao;
     public InterfaceGrafica(Simulador sl) {
         this.sl = sl;
-        setPreferredSize(new Dimension(300, 300));  // Assegura-se de que o tamanho é suficiente para a arena
+        setPreferredSize(new Dimension(600, 600));  // Assegura-se de que o tamanho é suficiente para a arena
         setBackground(Color.BLACK);  // Define a cor de fundo
     }
 
@@ -18,14 +18,15 @@ public class InterfaceGrafica extends JPanel{
         Graphics2D g2d = (Graphics2D) g;
 
         Arena arena = sl.getArena();
+
         int cellSize = Math.min(getWidth() / arena.getLargura(), getHeight() / arena.getAltura());
 
         // Desenha a cobra
         g2d.setColor(Color.GREEN);
         for (Quadrado quad : arena.getCobra().getCobra()) {
-            g2d.fillRect((int) quad.findCentroide().getX() * cellSize,
-                         (int) quad.findCentroide().getY() * cellSize,
-                         cellSize, cellSize);
+            g2d.fillRect((int) quad.findCentroide().getX() * cellSize ,
+                         (int) quad.findCentroide().getY() * cellSize ,
+                         cellSize*2, cellSize*2);
         }
 
         // Desenha a comida
@@ -33,7 +34,7 @@ public class InterfaceGrafica extends JPanel{
         Ponto posComida = arena.getComida().getPosicaoComida();
         g2d.fillRect((int) posComida.getX() * cellSize,
                      (int) posComida.getY() * cellSize,
-                     cellSize, cellSize);
+                     cellSize*2, cellSize*2);
 
         // Desenha os obstáculos
         g2d.setColor(Color.BLUE);
@@ -41,7 +42,7 @@ public class InterfaceGrafica extends JPanel{
             for (Ponto p : obstaculo.getPoligono().getP()) {
                 g2d.fillRect((int) p.getX() * cellSize,
                              (int) p.getY() * cellSize,
-                             cellSize, cellSize);
+                             cellSize*2, cellSize*2);
             }
         }
     }

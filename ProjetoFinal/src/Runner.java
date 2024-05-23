@@ -8,6 +8,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JFrame;
 
@@ -91,60 +92,55 @@ public class Runner {
     }
 
     public void runGrafica() {
-    // Cria a janela principal para a interface gráfica
-    JFrame frame = new JFrame("Snake Game");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400, 400); // Definir o tamanho com base na largura e altura da arena, possivelmente escalado
-    frame.setResizable(false);
-    
-    // Adiciona a interface gráfica ao frame
-    frame.add(this.ig);
-    frame.pack();
-    frame.setVisible(true);
-
-    // Adiciona o KeyListener para capturar entrada do teclado
-    frame.addKeyListener(new KeyAdapter() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_LEFT:
-                    sl.proximoPasso("L");
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    sl.proximoPasso("R");
-                    break;
-                case KeyEvent.VK_UP:
-                    sl.proximoPasso("U");
-                    break;
-                case KeyEvent.VK_DOWN:
-                    sl.proximoPasso("D");
-                    break;
-                case KeyEvent.VK_ESCAPE:
-                    System.exit(0);  // Encerra o jogo
-                    break;
-            }
-            frame.repaint();  // Solicita a re-renderização da janela após cada movimento
-        }
-    });
-
-    // Loop do jogo para modo automático
-    if (this.sl.getModoJogo().equals("automatico")) {
+        // Cria a janela principal para a interface gráfica
+        JFrame frame = new JFrame("Snake Game");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         boolean isRunning = true;
-        while (isRunning) {
-            try {
-                Thread.sleep(300); // Intervalo entre os movimentos da cobra
-            } catch (InterruptedException ex) {
-                Thread.currentThread().interrupt();
+        // Adiciona a interface gráfica ao frame
+        frame.add(this.ig);
+        frame.pack();
+        frame.setVisible(true);
+    
+        // Adiciona o KeyListener para capturar entrada do teclado
+        AtomicReference<String> currentDirection = new AtomicReference<>("");  // Guarda a direção atual
+        frame.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_LEFT:
+                        currentDirection.set("L");
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        currentDirection.set("R");
+                        break;
+                    case KeyEvent.VK_UP:
+                        currentDirection.set("U");
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        currentDirection.set("D");
+                        break;
+                    case KeyEvent.VK_ESCAPE:
+                        System.exit(0);  // Encerra o jogo
+                        break;
+                }
             }
-            
-            String nextDirection = cz.nextDirection(); // Obtém a próxima direção da cobra zarolha
-            if ("Q".equals(nextDirection)) {
-                isRunning = false;
-            } else {
-                sl.proximoPasso(nextDirection);
+        });
+    
+        // Loop do jogo que mantém a cobra movendo-se na direção atual até que uma nova seja escolhida
+        new Thread(() -> {
+            while (isRunning) {
+                try {
+                    Thread.sleep(500);  // Velocidade de atualização da movimentação da cobra
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+    
+                if (!currentDirection.get().isEmpty()) {
+                    sl.proximoPasso(currentDirection.get());
+                    frame.repaint();  // Re-renderiza após cada passo automático
+                }
             }
-            frame.repaint();  // Re-renderiza após cada passo automático
-        }
+        }).start();
     }
-}
-}
+}    
