@@ -1,17 +1,27 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.JPanel;
 
 public class InterfaceGrafica extends JPanel {
     private Simulador sl;
-    private Ponto topLeftCorner;
-    private double dimensao;
-    public static final Color VERY_DARK_GREEN = new Color(0, 179, 0);
+    private ScorePanel scorePanel;
+    private static final Color VERY_DARK_GREEN = new Color(0, 180, 0);
 
     public InterfaceGrafica(Simulador sl) {
         this.sl = sl;
-        setPreferredSize(new Dimension(600, 600)); // Assegura-se de que o tamanho é suficiente para a arena
+        setLayout(new BorderLayout()); // Usa BorderLayout para melhor disposição dos componentes
         setBackground(Color.DARK_GRAY); // Define a cor de fundo
+
+        scorePanel = new ScorePanel(this.sl.getArena());
+        add(scorePanel, BorderLayout.NORTH);
+        
+        setPreferredSize(new Dimension(600, 650)); // Ajusta o tamanho total do painel
     }
+
 
     public boolean isCompleta() {
         return this.sl.getModoRasterizacao().equals("completa");
