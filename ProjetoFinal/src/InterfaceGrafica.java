@@ -3,9 +3,7 @@ import javax.swing.JPanel;
 
 public class InterfaceGrafica extends JPanel {
     private Simulador sl;
-    private Ponto topLeftCorner;
-    private double dimensao;
-    public static final Color VERY_DARK_GREEN = new Color(0, 179, 0);
+    public static final Color DARK_GREEN = new Color(0, 179, 0);
 
     public InterfaceGrafica(Simulador sl) {
         this.sl = sl;
@@ -51,7 +49,7 @@ public class InterfaceGrafica extends JPanel {
             }
 
             // Desenha o resto do corpo
-            g2d.setColor(VERY_DARK_GREEN);
+            g2d.setColor(DARK_GREEN);
             for (int i = 1; i < cobra.size(); i++) {
                 Quadrado quad = cobra.get(i);
                 if (isCompleta()) {
