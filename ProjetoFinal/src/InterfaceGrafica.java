@@ -1,58 +1,48 @@
 import java.awt.*;
 
-public class InterfaceGrafica {
+import javax.swing.JPanel;
+
+public class InterfaceGrafica extends JPanel{
     private Simulador sl;
     private Ponto topLeftCorner;
     private double dimensao;
     public InterfaceGrafica(Simulador sl) {
         this.sl = sl;
+        setPreferredSize(new Dimension(300, 300));  // Assegura-se de que o tamanho é suficiente para a arena
+        setBackground(Color.BLACK);  // Define a cor de fundo
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
-        Ponto p;
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
 
-        for(int i = 0; i < this.sl.getArena().getAltura(); i++) {
-            for(int j = 0; j < this.sl.getArena().getLargura(); j++) {
-                p = new Ponto(i, j);
+        Arena arena = sl.getArena();
+        int cellSize = Math.min(getWidth() / arena.getLargura(), getHeight() / arena.getAltura());
 
-                g2d.setColor(Color.WHITE);
-                this.dimensao = 1;
+        // Desenha a cobra
+        g2d.setColor(Color.GREEN);
+        for (Quadrado quad : arena.getCobra().getCobra()) {
+            g2d.fillRect((int) quad.findCentroide().getX() * cellSize,
+                         (int) quad.findCentroide().getY() * cellSize,
+                         cellSize, cellSize);
+        }
 
-                //Cobra
-                for(int k = 0; k < this.sl.getArena().getCobra().getCobra().size(); k++) {
-                    if (p.equals(this.sl.getArena().getCobra().getCobra().get(k).findCentroide())) {
-                        g2d.setColor(Color.GREEN);
-                        break;
-                    }
-                }
+        // Desenha a comida
+        g2d.setColor(Color.RED);
+        Ponto posComida = arena.getComida().getPosicaoComida();
+        g2d.fillRect((int) posComida.getX() * cellSize,
+                     (int) posComida.getY() * cellSize,
+                     cellSize, cellSize);
 
-                //Comida
-                if (p.equals(this.sl.getArena().getComida().getPosicaoComida())) {
-                    if(this.sl.getTipoComida().equals("quadrado")){
-                        this.topLeftCorner = this.sl.getArena().getVerticesFromCentroid(this.sl.getArena().getComida().getPosicaoComida()).get(0);
-                    }
-                    else{
-                        this.topLeftCorner = p;
-                    }
-                    g2d.setColor(Color.RED);
-                }
-
-                //Obstaculos
-                for(int l = 0; l < this.sl.getArena().getObstaculos().size(); l++){
-                    if (p.equals(this.sl.getArena().getObstaculos().get(l).getPosicao())){
-                        this.topLeftCorner = this.sl.getArena().getObstaculos().get(l).getPoligono().getP().get(0);
-                        g2d.setColor(Color.BLUE);
-                        break;
-                    }
-                }
-
-                //g2d.draw(this.snakeGame[i][j].getRect());
-                g2d.fill(new Rectangle((int)p.getX(), (int)p.getY(), (int)this.dimensao, (int)this.dimensao));
+        // Desenha os obstáculos
+        g2d.setColor(Color.BLUE);
+        for (Obstaculo obstaculo : arena.getObstaculos()) {
+            for (Ponto p : obstaculo.getPoligono().getP()) {
+                g2d.fillRect((int) p.getX() * cellSize,
+                             (int) p.getY() * cellSize,
+                             cellSize, cellSize);
             }
         }
-        //g2d.drawRect(20, 20, 400, 400);
     }
-
-
 }
