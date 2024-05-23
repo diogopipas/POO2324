@@ -36,6 +36,7 @@ public class Runner {
             runGrafica();
         }
     }
+    
     public void runTextual() {
         boolean isRunning = true;
         if (this.sl.getModoRasterizacao().equals("completa")) {
@@ -131,7 +132,7 @@ public class Runner {
         new Thread(() -> {
             while (isRunning) {
                 try {
-                    Thread.sleep(500);  // Velocidade de atualização da movimentação da cobra
+                    Thread.sleep(300);  // Velocidade de atualização da movimentação da cobra
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
