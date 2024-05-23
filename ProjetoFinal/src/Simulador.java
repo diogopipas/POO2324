@@ -25,7 +25,7 @@ public class Simulador {
         boolean validInput = false;
         while(!validInput){
             try {
-                System.out.println("Introduza a dimensao da arena, ex: 30 30");
+                System.out.println("Introduza a dimensao da arena, Recomendado para modo gráfico: 100 100. Recomendado para modo textual: 30 30.");
                 String[] dimensaoArenaInput = sc.nextLine().split(" ", 2);
                 if (dimensaoArenaInput.length != 2 || !dimensaoArenaInput[0].matches("\\d+") || !dimensaoArenaInput[1].matches("\\d+")) {
                     throw new IllegalArgumentException("Dimensão da arena inválida. Deve ser no formato 'número número'.");

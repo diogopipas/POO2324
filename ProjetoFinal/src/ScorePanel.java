@@ -1,19 +1,18 @@
+/** Classe responsável pela criação do painel de pontuação
+ * @version 1.0
+ * @author André Santos, Diogo Porto
+ */
+
 import javax.swing.*;
 import java.awt.*;
 
-
 public class ScorePanel extends JPanel {
-    Arena arena;
+    private Arena arena;
 
     public ScorePanel(Arena arena) {
         this.arena = arena;
         setOpaque(false);
         setPreferredSize(new Dimension(600, 60));
-    }
-
-    public void setScore(int score) {
-        score = arena.getPontuacao();
-        repaint();
     }
 
     @Override
@@ -22,17 +21,17 @@ public class ScorePanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g.create();
         applyQualityRenderingHints(g2);
 
-        // Draw background with a drop shadow
+        // Draw background with a subtle drop shadow and more transparency
         int x = 10;
         int y = 10;
         int width = getWidth() - 20;
         int height = getHeight() - 20;
         int arc = 20;
-        g2.setColor(new Color(0, 0, 0, 100));
+        g2.setColor(new Color(0, 0, 0, 50)); // Lighter shadow for subtlety
         g2.fillRoundRect(x, y + 2, width, height, arc, arc);
 
-        // Draw main rounded rectangle
-        g2.setColor(new Color(30, 30, 30));
+        // Draw main rounded rectangle with higher transparency
+        g2.setColor(new Color(30, 30, 30, 180)); // Semi-transparent
         g2.fillRoundRect(x, y, width, height, arc, arc);
 
         // Draw the score text
@@ -41,8 +40,8 @@ public class ScorePanel extends JPanel {
         g2.setFont(font);
         FontMetrics metrics = g2.getFontMetrics(font);
         int textX = (width - metrics.stringWidth(scoreText)) / 2;
-        int textY = ((height - metrics.getHeight()) / 2) + metrics.getAscent();
-        g2.setColor(Color.WHITE);
+        int textY = ((height - metrics.getHeight())) + metrics.getAscent();
+        g2.setColor(Color.WHITE); // Ensure text is clearly visible
         g2.drawString(scoreText, textX, textY);
 
         g2.dispose();

@@ -5,12 +5,14 @@
  * @version 1.0
  */
 
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class Runner {
     private Scanner sc;
@@ -94,14 +96,30 @@ public class Runner {
 
     public void runGrafica() {
         // Cria a janela principal para a interface gráfica
-        JFrame frame = new JFrame("Snake Game");
+        JFrame frame = new JFrame("OOPS!: The Snake Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+
+        // Get screen dimensions
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        frame.setLocation(screenWidth/3, screenHeight/3);
+
+
         boolean isRunning = true;
         // Adiciona a interface gráfica ao frame
         frame.add(this.ig);
         frame.pack();
         frame.setVisible(true);
+
+        // Create and display the leaderboard frame
+        LeaderBoardFrame leaderBoardFrame = new LeaderBoardFrame();
+        leaderBoardFrame.setVisible(true);
+
+        // Position the leaderboard frame to the right of the game frame
+        leaderBoardFrame.setLocation(screenWidth/3 + frame.getWidth(), screenHeight/4);
     
         // Adiciona o KeyListener para capturar entrada do teclado
         AtomicReference<String> currentDirection = new AtomicReference<>("");  // Guarda a direção atual
@@ -127,21 +145,41 @@ public class Runner {
                 }
             }
         });
-    
-        // Loop do jogo que mantém a cobra movendo-se na direção atual até que uma nova seja escolhida
-        new Thread(() -> {
+
+        if (this.sl.getModoJogo().equals("automatico")) {
             while (isRunning) {
                 try {
-                    Thread.sleep(300);  // Velocidade de atualização da movimentação da cobra
+                    Thread.sleep(500); // Intervalo entre os movimentos da cobra
                 } catch (InterruptedException ex) {
                     Thread.currentThread().interrupt();
                 }
-    
-                if (!currentDirection.get().isEmpty()) {
-                    sl.proximoPasso(currentDirection.get());
-                    frame.repaint();  // Re-renderiza após cada passo automático
+
+                String nextDirection = cz.nextDirection(); // Obtém a próxima direção da cobra zarolha
+                if ("Q".equals(nextDirection)) {
+                    isRunning = false;
+                } else {
+                    sl.proximoPasso(nextDirection);
                 }
+                frame.repaint();  // Re-renderiza após cada passo automático
             }
-        }).start();
+        }
+
+        else {
+            // Loop do jogo que mantém a cobra movendo-se na direção atual até que uma nova seja escolhida
+            new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(200);  // Velocidade de atualização da movimentação da cobra
+                    } catch (InterruptedException ex) {
+                        Thread.currentThread().interrupt();
+                    }
+
+                    if (!currentDirection.get().isEmpty()) {
+                        sl.proximoPasso(currentDirection.get());
+                        frame.repaint();  // Re-renderiza após cada passo automático
+                    }
+                }
+            }).start();
+        }
     }
 }    
