@@ -21,7 +21,7 @@ public class Runner {
         this.sc = new Scanner(System.in);
         this.it = new InterfaceTextual(sl);
         this.cz = new CobraZarolha(sl);
-        this.ig = new InterfaceGrafica(sl);
+        //this.ig = new InterfaceGrafica(sl);
     }
 
 
